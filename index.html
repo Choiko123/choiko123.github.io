@@ -47,7 +47,6 @@
       pointer-events: none;
     }
 
-    /* 집 모양 버튼 */
     .nav-menu-btn {
       background: none;
       border: none;
@@ -59,16 +58,8 @@
       justify-content: center;
     }
 
-    .house-icon {
-      width: 28px;
-      height: 28px;
-      transition: opacity 0.2s;
-    }
-
+    .house-icon { width: 28px; height: 28px; transition: opacity 0.2s; }
     .nav-menu-btn:hover .house-icon { opacity: 0.5; }
-
-    /* 메뉴 열렸을 때 아이콘 색 반전 */
-    .menu-open .house-icon .house-stroke { stroke: rgba(245,240,232,0.6); }
 
     /* ══════════════════════════════
        MENU OVERLAY
@@ -77,7 +68,7 @@
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: var(--ink);
+      background: #1c1c1c;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -173,13 +164,14 @@
     .menu-overlay.open .menu-tagline { opacity: 1; }
 
     /* ══════════════════════════════
-       HERO — 풀스크린 이미지만
+       HERO
     ══════════════════════════════ */
     #home-section {
       height: 100vh;
       width: 100%;
       overflow: hidden;
       position: relative;
+      background: #1c1c1c;
     }
 
     .hero-image {
@@ -194,14 +186,11 @@
     @media (min-width: 1024px) {
       .hero-image {
         object-fit: contain;
-        background: #1c1c1c;
       }
     }
 
-    /* 사진 없을 때 placeholder */
     .hero-placeholder {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: linear-gradient(160deg, #c8c8c5 0%, #a8a8a5 40%, #888885 100%);
     }
 
@@ -279,7 +268,7 @@
     }
 
     .writing-item:first-child { border-top: 1px solid var(--rule); }
-    .writing-item:hover .writing-title { color: var(--accent); }
+    .writing-item:hover .writing-title { opacity: 0.7; }
 
     .writing-date {
       font-family: 'EB Garamond', Georgia, serif;
@@ -305,7 +294,7 @@
       font-weight: 400;
       line-height: 1.45;
       color: var(--accent);
-      transition: color 0.2s;
+      transition: opacity 0.2s;
     }
 
     .writing-arrow {
@@ -322,7 +311,6 @@
       font-size: 0.88rem;
       font-style: italic;
       color: var(--ink-faint);
-      letter-spacing: 0.04em;
       border-top: 1px solid var(--rule);
     }
 
@@ -404,56 +392,6 @@
     }
 
     /* ══════════════════════════════
-       MODAL
-    ══════════════════════════════ */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(26,23,20,0.55);
-      z-index: 400;
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 5vh 1rem;
-      overflow-y: auto;
-      backdrop-filter: blur(3px);
-    }
-
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--cream);
-      max-width: 660px;
-      width: 100%;
-      padding: 4rem;
-      position: relative;
-      animation: modalIn 0.35s ease;
-    }
-
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1.5rem; right: 1.5rem;
-      background: none; border: none;
-      font-family: 'EB Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--ink-faint);
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .modal-close:hover { color: var(--ink); }
-    .modal-tag { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
-    .modal-title { font-family: 'Noto Serif KR', serif; font-size: 1.65rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.6rem; }
-    .modal-date { font-family: 'EB Garamond', serif; font-size: 0.78rem; font-style: italic; color: var(--ink-faint); margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
-    .modal-body { font-size: 1rem; font-weight: 300; line-height: 2.1; color: var(--ink-light); }
-    .modal-body p + p { margin-top: 1.5em; }
-
-    /* ══════════════════════════════
        CHOIKO 페이지
     ══════════════════════════════ */
     .choiko-grid {
@@ -516,11 +454,11 @@
       margin-top: auto;
     }
 
-    /* 상품 상세 모달 */
+    /* 상품 모달 */
     .shop-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(26,23,20,0.55);
+      background: rgba(28,28,28,0.55);
       z-index: 400;
       display: none;
       align-items: flex-start;
@@ -553,56 +491,16 @@
     }
 
     .shop-modal-close:hover { color: var(--ink); }
+    .shop-modal-tag { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.8rem; }
+    .shop-modal-title { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.5rem; }
+    .shop-modal-price { font-family: 'EB Garamond', Georgia, serif; font-size: 1rem; font-style: italic; color: var(--accent); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+    .shop-modal-desc { font-size: 0.93rem; font-weight: 300; line-height: 2.1; color: var(--ink-light); margin-bottom: 2.5rem; }
 
-    .shop-modal-tag {
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 0.8rem;
-    }
-
-    .shop-modal-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 1.4;
-      margin-bottom: 0.5rem;
-    }
-
-    .shop-modal-price {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--accent);
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .shop-modal-desc {
-      font-size: 0.93rem;
-      font-weight: 300;
-      line-height: 2.1;
-      color: var(--ink-light);
-      margin-bottom: 2.5rem;
-    }
-
-    /* 신청 폼 */
     .shop-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
 
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
 
-    .form-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
+    .form-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
 
     .form-input {
       background: none;
@@ -648,34 +546,62 @@
       margin-top: 0.5rem;
     }
 
-    .payment-notice a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-    }
+    .payment-notice a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
 
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 2.5rem 1rem;
-    }
-
+    .form-success { display: none; text-align: center; padding: 2.5rem 1rem; }
     .form-success.show { display: block; }
+    .form-success-title { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.8rem; }
+    .form-success-text { font-family: 'EB Garamond', Georgia, serif; font-size: 0.88rem; font-style: italic; color: var(--ink-faint); line-height: 1.9; }
 
-    .form-success-title {
-      font-family: 'Noto Serif KR', serif;
+    /* ══════════════════════════════
+       MODAL (글 본문)
+    ══════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,28,28,0.55);
+      z-index: 400;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 5vh 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--cream);
+      max-width: 660px;
+      width: 100%;
+      padding: 4rem;
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      font-family: 'EB Garamond', serif;
       font-size: 1.1rem;
-      font-weight: 400;
-      margin-bottom: 0.8rem;
+      color: var(--ink-faint);
+      cursor: pointer;
+      transition: color 0.2s;
     }
 
-    .form-success-text {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 0.88rem;
-      font-style: italic;
-      color: var(--ink-faint);
-      line-height: 1.9;
-    }
+    .modal-close:hover { color: var(--ink); }
+    .modal-tag { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
+    .modal-title { font-family: 'Noto Serif KR', serif; font-size: 1.65rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.6rem; }
+    .modal-date { font-family: 'EB Garamond', serif; font-size: 0.78rem; font-style: italic; color: var(--ink-faint); margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+    .modal-body { font-size: 1rem; font-weight: 300; line-height: 2.1; color: var(--ink-light); }
+    .modal-body p + p { margin-top: 1.5em; }
 
     /* ══════════════════════════════
        RESPONSIVE
@@ -698,9 +624,9 @@
 <nav id="mainNav">
   <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="메뉴 열기">
     <svg class="house-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polyline class="house-stroke" points="3,14 14,4 25,14" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <polyline class="house-stroke" points="6,12 6,24 22,24 22,12" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect class="house-stroke" x="11" y="17" width="6" height="7" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="3,14 14,4 25,14" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="6,12 6,24 22,24 22,12" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="11" y="17" width="6" height="7" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
 </nav>
@@ -709,15 +635,9 @@
 <div class="menu-overlay" id="menuOverlay">
   <div class="menu-inner">
     <ul class="menu-items">
-      <li>
-        <button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button>
-      </li>
-      <li>
-        <button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button>
-      </li>
-      <li>
-        <button class="menu-item-link" onclick="showPage('about')">소개</button>
-      </li>
+      <li><button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button></li>
+      <li><button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button></li>
+      <li><button class="menu-item-link" onclick="showPage('about')">소개</button></li>
     </ul>
     <div class="menu-sub">
       <a class="menu-sub-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
@@ -732,18 +652,37 @@
   <img class="hero-image" src="cover.jpg" alt="">
 </div>
 
-<!-- 글 페이지 -->
+<!-- 어디까지 말했더라 페이지 -->
 <div class="page" id="page-writings">
   <div class="page-inner">
     <button class="page-back" onclick="showHome()">홈으로</button>
     <div class="section-header">
-      <span class="section-title">글</span>
+      <span class="section-title">어디까지 말했더라</span>
       <div class="section-rule"></div>
     </div>
 
     <div class="writing-list" id="writingList">
 
-      <div class="writing-item" onclick="openModal('에세이', 'ep.1 아름답고 부질있는 것', '2026. 5. 7', `
+      <div class="writing-item" onclick="openModal('에세이', 'ep.2 — 재난 이후의 삶처럼', '2026. 5. 8', `
+        <p>집에 오면서 생각했다. 이쯤 되면 슬퍼야 할 것 같은데? 슬프지 않았다. 이런 노래를 들으면 울컥해야 할 것 같은데? 울컥하지 않았다. 그렇다면 놀고 싶거나 술을 마시고 싶은가? 그렇지도 않았다. 약효가 돌기 시작했나 보다. 평온했다. 아무렇지 않았다.</p>
+        <p>이상했다. 잔잔한 바다, 태풍이 휩쓸고 간 이후.. 부서진 뗏목 가운데 둥둥 앉아서, 아무 일도 없었던 것처럼 잔잔한 세상. 그러니까 정말 아무 일도 없었던 것처럼...</p>
+        <p>조증이 재난처럼 휩쓸고 지나간 지난 몇 달을 나는 어떻게 받아들여야 할까? 일을 그만 두고 죄책감에 휩싸여 일상을 망치거나 하지도 않았다. 어쩔 수 없는 일을 어쩔 수 없는 일로 두고 우선 해야 할 일을 했다. 일하느라, 그리고 일하느라 받은 스트레스를 풀려고 노느라, 허비했던 시간을 보상이라도 하는 듯 며칠은 열심히 머리를 싸매고 글을 썼다. 다시 병원에 갔고 약도 타 왔다.</p>
+        <p>그러니까 또 나아지고 있다. 이럴 땐 궁금해진다. 몇 번이나 이 과정을 반복해야 진정으로 나아지는 거지? 이전에라고 이런 일이 없었던 게 아니다. 나는 자주 고꾸라졌고 또 다시 일어나 엉금엉금 기었다. 그러다가 갑자기 벌떡 일어나 달렸고, 또 다시 고꾸라졌다. 가끔은 혼자 일어났고 가끔은 사람들의 손에 이끌려 일어났다. 이런 일이 계속 반복되는 것이 인생이라면 나는 이 과정에 질리지 않을 수 있을까? 매번 처음인 것처럼 손을 툭툭 털고 일어날 수 있을까? 아니면 더이상은 안 넘어지겠다며 낙법을 시도하는 날도 올까?</p>
+        <p>걱정되는 것은 더이상 일어나고 싶지 않아질까 봐. 이 과정에 너무 질려서, 일어나도 또 넘어질 텐데, 일어나서 뭐 해, 하는 순간이 올까 봐.</p>
+        <p>기억력이 좋은 사람일수록 우울해질 확률이 높다고 한다. 나는 수치스러웠던 순간을 유독 잘 기억한다. 되새기고 또 되새겨서 날 계속 해서 모욕한다. 고꾸라지는 순간은 매우 수치스럽다. 사람들에게 피해를 입히기도 하고, 약속을 깨뜨리기도 한다. 그 감각은 이미 너무 많이 되새겨서 이미 나를 지배하고 있다. 미안하다고 말해도 수습되지 않을 일들. 그래서 미안하다고도 말하지 못했던 일들.</p>
+        <p>부서진 뗏목 위에서 이런 생각을 하고 있다. 어디로 가서 이 수치심을 털어내야 하지. 내가 한 구린 짓들을 모두 바닷속 깊은 곳에 던지고 멀리 멀리 떠나고 싶은 충동이 들었다. 그러면 마음이 좀 편해지시렵니까? 아니겠지. 단단한 끈에 묶인 것처럼 나를 졸졸 뒤따라 오다가 결국 나까지 바닷속으로 끌어당기겠지. 돌덩이를 끌어안고 어디로 가야 하나 멍하게 있다. 나는 지금 그런 단계다. 마무리 짓거나 제대로 시작할 일을 찾지 못한 채, 다음 스테이지가 어디인지도 모른 채 잠깐 렉이 걸린 상태.</p>
+        <p>나아지려면 많은 것을 기억해야지, 하면서도, 잔잔한 바다를 유지하려면 적당히 기억하는 법도 알아내야 할 텐데 싶다. 결국 내가 할 수 있는 일은 별거 없다. 태풍이 휩쓸고 간 흔적을 재정비하고, 어디로 노를 저을지 찾아보는 일. 지도를 펼치고 세상을 공부하는 일. 내가 가지고 갈 가방의 용량이 정해져 있다면, 이렇게 공부하며 채운 것들이 수치심을 조금이나마 밀어낼 수도 있지 않을까 싶다.</p>
+        <p>이런 글을 쓰면서도 기분이 깊이 떨어지지 않는 것이 신기하다. 재미없을지도 모르겠다. 집에 돌아가며, 양치하며, 글을 쓰다 우는 일이 줄어든다면. 하지만 또 다른 재미가 생기겠지. 그것이 무엇인지는 아직 나는 모른다. 아직 모른다는 것이 나를 조금 기쁘게 한다. 기대하게 한다. 그 힘으로 노를 조금 저어볼 수 있을 것 같다.</p>
+      `)">
+        <span class="writing-date">May 8</span>
+        <div class="writing-info">
+          <p class="writing-tag">에세이</p>
+          <p class="writing-title">ep.2 — 재난 이후의 삶처럼</p>
+        </div>
+        <span class="writing-arrow">→</span>
+      </div>
+
+      <div class="writing-item" onclick="openModal('에세이', 'ep.1 — 아름답고 부질있는 것', '2026. 5. 7', `
         <p>근 몇 년 사이에 아름다운 것, 옳은 것만 남기고 그렇지 못한 것은 모두 없애버리겠다고 생각하는 사람이 늘어나고 있는 것 같다. 지금도 얼마나 많은 존재가 옳지 못하다, 아름답지 못하다는 이유로 사라지고 있을지.</p>
         <p>쓸모없고 아름답지도 않은 것도 존재하는 세상이야말로 아름다운 세상이지 않을까?</p>
         <p>말은 이렇게 하지만 나도 어쩔 수 없이 의미와 아름다움을 좇게 된다. 천성이 그러한 것 같다. 내가 좇는 아름다움이 뭔가를 소외시키고 있는 것은 아닌가.</p>
@@ -751,24 +690,10 @@
         <p>그것이 나쁘다고 생각한 적은 없었다. 솔직하지 못한 사람들은 못생겼어. 자기 자신을 받아들이지 못하고 항상 아닌 척 하고, 상처 받고... 부질없고 하찮다고 생각했다. 내가 진정성 있다는 어떤 우월의식도 있었다. 하지만 나 또한 자주 척했고, 오히려 진짜처럼 보이려고 너무 노력하다 못해 나조차 뭐가 진짜인지 구별하지 못하는 지경이었다. 사랑받기 위해서라면 사랑도 척할 수 있었고, 진짜 사랑한다고 나를 믿게 만들기도 했다. 막상 떠나고 나면 알았다. 와, 나 저 사람 전혀 안 사랑했구나. 반대로 정말 사랑하는 사람을 만나면 겁이 나서 별로 사랑하지 않는 척 했다. 결점을 까발리며 이 정도인데도 날 사랑할 수 있니? 자꾸 물어보고 싶었다. 그가 싫어하는 행동을 하며 신경질을 살살 돋구었다. 화내면 그제서야 안심이 됐다. 그래, 결국 사랑하지 못하겠지? 너도 나를 떠나갈 거지? 다 거짓말이었지. 하찮고 부질없는 건 내 쪽이었다.</p>
         <p>무언가 아름답다고 생각하는 것은, 동시에 무언가를 못생겼다고 생각하는 것이 되기도 하기 때문에 어렵다. 못생긴 것은 보고 싶지 않다. 자연스레 밀어내게 된다. 가짜 같은 것, 멍청한 것, 자기만 생각하는 것... 하지만 나에게도 그러한 못생긴 부분이 있고, 그것을 보지 않으려고 할수록 그 부분은 커지게 된다. 세상의 못생긴 부분도 똑같다. 내가 문제를 보고 싶지 않아 한다고 하여 그들이 사라지는 것은 아니며, 오히려 직면하고 문제를 해결하려 들어야 조금이라도 나아질 수 있다. 물론, 그 안으로 들어가 싸우는 것은 아름다운 것이 틈틈이 채워지지 않으면 지속하기 힘들기도 하다.</p>
         <p>때문에 내게 진정성 추구는 언젠가부터 부끄러운 점이 되었다. 진정성, 당사자성, 사실 그런 게 무슨 의미가 있지? 사과를 제대로 하려면 손글씨로 사과문을 작성해서 올려야 한다. 그게 훨씬 진정성 있어 보이니까. 그런데 그게 진짜 진심을 판가름 할 수 있는가? 겉으로 보이는 이미지와 내면의 마음은 다를 수 있다. 그리고 그것은 무조건 나쁜 게 아니다. 오히려 남을 위하는 행동이 될 수도 있다.</p>
-        <p>최근 독서모임에서도 그런 말을 했다. 진정성을 너무 중요시 하는 게 우리 세대의 문제인 것 같다고. 원래 사람들은 가면을 좀 쓰면서 사는 건데, 그 덕분에 사회가 조금 다정하게 유지되는 것도 있는데, 이제 그러지 말고 가면을 벗으라고, 솔직해지라고, 온세상이 떠들고 있는 것 같다. 그래서 다들 너무 막 진심을 말하고, 서로를 상처주는 것에 두려움이 없다. 러브 유어셀프가 자신도 좀 신경 쓰라는 거지, 남을 사랑하지 말라는 뜻은 아니었을 텐데.</p>
+        <p>최근 독서모임에서도 그런 말을 했다. 진정성을 너무 중요시 하는 게 우리 세대의 문제인 것 같다고. 원래 사람들은 가면을 좀 쓰면서 사는 건데, 그 덕분에 사회가 조금 다정하게 유지되는 것도 있는데, 이제 그러지 말고 가면을 벗으라고, 솔직해지라고, 온세상이 떠들고 있는 것 같다. 그래서 다들 너무 막 진심을 말하고, 서로를 상처주는 것에 두려움이 없다. 러브 유어셀프가 대신 남은 사랑하지 말라는 뜻은 아니었을 텐데.</p>
         <p>나는 놀라울 정도로 많은 사람들을 궁금해한다. 그것은 나를 살게 하는 원동력이자, 아름다운 것을 보고 싶어하는 욕망이기도 하다. 점점 삭막해지는 세상 속에서도 그럴 수 있는 이유 중 하나는 누구에게나 웬만해서는 조금이라도 좋은 면이 있다고 믿기 때문이다. 그게 진짜 그렇다고 생각해서 믿는다기보다는 그게 내게 도움이 돼서 믿는다. 종교 같은 것이다. 그 면을 찾으려고 애쓰는 노력 같은 게 나는 진정으로 아름답다고 믿는다. 대충 보고 덮는 마음이 아니라, 그래도 살펴보려고 애쓰는 마음. 누구에게나 양면이 있다고 믿는 마음. 그래서 결국 포기하지 않는 마음.</p>
         <p>나 또한 길란 작가처럼 의미와 아름다움을 사랑하고 어쩌면 천성이 그러한 것 같다. 언젠가 친한 언니가 자신이 인간관계에서 온 마음을 항상 쓰는 게 힘들다고 털어놓은 적 있다. 그러지 말라고 얘기하고 싶었으나, 그럴 수 없을 것 같았다. 그 언니의 천성인 것이다. 언니는 그렇게 힘듦을 토로하다가, 마지막엔 결국 눈물을 삼키며 말했다. 근데, 나도 알아. 난 계속 이럴 거야. 조금 웃었던 것 같기도 한데. 나는 거기서 눈물이 터졌다. 당시 함께 있던 전애인은 내가 슬퍼서 운 게 아니라는 것을 알아차렸다. 아름다웠지, 그 진심이? 집에 가며 되물을 때 조금 놀랐다. 내가 아름다움에 우는 것을 아는구나. 그랬다. 그런 진심을 어쩔 수 없이 나는 영원토록 아름다워 할 것이고, 못생긴 걸 숨기는 마음을 조금 미워할 것이다. 하지만 그래도 계속 애쓸 것이다. 보기 싫은 마음을 꾹 참으려고, 절대 쉽게 무시하지 않으려고, 그래도 같이 살아가 보려고, 알아가 보려고. 그것이 나의 불안을 점차 잠재우길 바란다. 그 또한 아름답지 않을까.</p>
       `)">
-
-        
-        <div class="writing-item" onclick="openModal('에세이', 'ep.2 재난 이후의 삶처럼', '2026. 5. 8', `
-        <p>집에 오면서 생각했다. 이쯤 되면 슬퍼야 할 것 같은데? 슬프지 않았다. 이런 노래를 들으면 울컥해야 할 것 같은데? 울컥하지 않았다. 그렇다면 놀고 싶거나 술을 마시고 싶은가? 그렇지도 않았다. 약효가 돌기 시작했나 보다. 평온했다. 아무렇지 않았다.
-        <p> 이상했다. 잔잔한 바다, 태풍이 휩쓸고 간 이후.. 부서진 뗏목 가운데 둥둥 앉아서, 아무 일도 없었던 것처럼 잔잔한 세상. 그러니까 정말 아무 일도 없었던 것처럼...
-        <p> 조증이 재난처럼 휩쓸고 지나간 지난 몇 달을 나는 어떻게 받아들여야 할까? 일을 그만 두고 죄책감에 휩싸여 일상을 망치거나 하지도 않았다. 어쩔 수 없는 일을 어쩔 수 없는 일로 두고 우선 해야 할 일을 했다. 일하느라, 그리고 일하느라 받은 스트레스를 풀려고 노느라, 허비했던 시간을 보상이라도 하는 듯 며칠은 열심히 머리를 싸매고 글을 썼다. 다시 병원에 갔고 약도 타 왔다.
-        <p> 그러니까 또 나아지고 있다. 이럴 땐 궁금해진다. 몇 번이나 이 과정을 반복해야 진정으로 나아지는 거지? 이전에라고 이런 일이 없었던 게 아니다. 나는 자주 고꾸라졌고 또 다시 일어나 엉금엉금 기었다. 그러다가 갑자기 벌떡 일어나 달렸고, 또 다시 고꾸라졌다. 가끔은 혼자 일어났고 가끔은 사람들의 손에 이끌려 일어났다. 이런 일이 계속 반복되는 것이 인생이라면 나는 이 과정에 질리지 않을 수 있을까? 매번 처음인 것처럼 손을 툭툭 털고 일어날 수 있을까? 아니면 더이상은 안 넘어지겠다며 낙법을 시도하는 날도 올까?
-        <p> 걱정되는 것은 더이상 일어나고 싶지 않아질까 봐. 이 과정에 너무 질려서, 일어나도 또 넘어질 텐데, 일어나서 뭐 해, 하는 순간이 올까 봐.
-        <p> 기억력이 좋은 사람일수록 우울해질 확률이 높다고 한다. 나는 수치스러웠던 순간을 유독 잘 기억한다. 되새기고 또 되새겨서 날 계속 해서 모욕한다. 고꾸라지는 순간은 매우 수치스럽다. 사람들에게 피해를 입히기도 하고, 약속을 깨뜨리기도 한다. 그 감각은 이미 너무 많이 되새겨서 이미 나를 지배하고 있다. 미안하다고 말해도 수습되지 않을 일들. 그래서 미안하다고도 말하지 못했던 일들.
-        <p> 부서진 뗏목 위에서 이런 생각을 하고 있다. 어디로 가서 이 수치심을 털어내야 하지. 내가 한 구린 짓들을 모두 바닷속 깊은 곳에 던지고 멀리 멀리 떠나고 싶은 충동이 들었다. 그러면 마음이 좀 편해지시렵니까? 아니겠지. 단단한 끈에 묶인 것처럼 나를 졸졸 뒤따라 오다가 결국 나까지 바닷속으로 끌어당기겠지. 돌덩이를 끌어안고 어디로 가야 하나 멍하게 있다. 나는 지금 그런 단계다. 마무리 짓거나 제대로 시작할 일을 찾지 못한 채, 다음 스테이지가 어디인지도 모른 채 잠깐 렉이 걸린 상태.
-        <p> 나아지려면 많은 것을 기억해야지, 하면서도, 잔잔한 바다를 유지하려면 적당히 기억하는 법도 알아내야 할 텐데 싶다. 결국 내가 할 수 있는 일은 별거 없다. 태풍이 휩쓸고 간 흔적을 재정비하고, 어디로 노를 저을지 찾아보는 일. 지도를 펼치고 세상을 공부하는 일. 내가 가지고 갈 가방의 용량이 정해져 있다면, 이렇게 공부하며 채운 것들이 수치심을 조금이나마 밀어낼 수도 있지 않을까 싶다.
-        <p> 이런 글을 쓰면서도 기분이 깊이 떨어지지 않는 것이 신기하다. 재미없을지도 모르겠다. 집에 돌아가며, 양치하며, 글을 쓰다 우는 일이 줄어든다면. 하지만 또 다른 재미가 생기겠지. 그것이 무엇인지는 아직 나는 모른다. 아직 모른다는 것이 나를 조금 기쁘게 한다. 기대하게 한다. 그 힘으로 노를 조금 저어볼 수 있을 것 같다.
-
-
         <span class="writing-date">May 7</span>
         <div class="writing-info">
           <p class="writing-tag">에세이</p>
@@ -777,6 +702,47 @@
         <span class="writing-arrow">→</span>
       </div>
 
+    </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- CHOIKO 페이지 -->
+<div class="page" id="page-choiko">
+  <div class="page-inner">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">CHOIKO</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="choiko-grid">
+      <div class="product-card" onclick="openShopModal('subscribe')">
+        <div class="product-image">
+          <img src="subscribe-image.png" alt="어디까지 말했더라">
+        </div>
+        <div>
+          <p class="product-tag">유료 구독</p>
+          <p class="product-title">어디까지 말했더라</p>
+        </div>
+        <p class="product-price">월 10,000원</p>
+        <p class="product-cta">신청하기 →</p>
+      </div>
+
+      <div class="product-card" onclick="openShopModal('book')">
+        <div class="product-image">
+          <img src="book-cover.jpg" alt="안 할 수도 있었던 말">
+        </div>
+        <div>
+          <p class="product-tag">독립출판</p>
+          <p class="product-title">안 할 수도 있었던 말</p>
+        </div>
+        <p class="product-price">15,000원</p>
+        <p class="product-cta">구매하기 →</p>
+      </div>
     </div>
 
     <footer>
@@ -808,51 +774,6 @@
           <a class="about-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
         </div>
       </div>
-    </div>
-
-    <footer>
-      <span class="footer-text">© 2026</span>
-    </footer>
-  </div>
-</div>
-
-<!-- CHOIKO 페이지 -->
-<div class="page" id="page-choiko">
-  <div class="page-inner">
-    <button class="page-back" onclick="showHome()">홈으로</button>
-    <div class="section-header">
-      <span class="section-title">CHOIKO</span>
-      <div class="section-rule"></div>
-    </div>
-
-    <div class="choiko-grid">
-
-      <!-- 상품 1: 유료 구독 -->
-      <div class="product-card" onclick="openShopModal('subscribe')">
-        <div class="product-image">
-          <img src="subscribe-image.png" alt="어디까지 말했더라">
-        </div>
-        <div>
-          <p class="product-tag">유료 구독</p>
-          <p class="product-title">어디까지 말했더라</p>
-        </div>
-        <p class="product-price">월 10,000원</p>
-        <p class="product-cta">신청하기 →</p>
-      </div>
-
-      <!-- 상품 2: 책 -->
-      <div class="product-card" onclick="openShopModal('book')">
-        <div class="product-image">
-          <img src="book-cover.jpg" alt="안 할 수도 있었던 말">
-        </div>
-        <div>
-          <p class="product-tag">독립출판</p>
-          <p class="product-title">안 할 수도 있었던 말</p>
-        </div>
-        <p class="product-price">15,000원</p>
-        <p class="product-cta">구매하기 →</p>
-      </div>
-
     </div>
 
     <footer>
@@ -907,9 +828,8 @@
     <h2 class="shop-modal-title">안 할 수도 있었던 말</h2>
     <p class="shop-modal-price">15,000원 (배송비 포함)</p>
 
-    <!-- 이미지 갤러리 -->
     <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem;">
-      <img src="book-cover.jpg" alt="안 할 수도 있었던 말 표지" style="width:100%; display:block;">
+      <img src="book-cover.jpg" alt="표지" style="width:100%; display:block;">
       <img src="book-mockup.jpg" alt="펼친 책" style="width:100%; display:block;">
       <img src="book-toc.jpg" alt="차례" style="width:100%; display:block;">
       <img src="book-intro1.jpg" alt="본문" style="width:100%; display:block;">
@@ -918,7 +838,6 @@
       <img src="book-page2.jpg" alt="본문" style="width:100%; display:block;">
     </div>
 
-    <!-- 책 소개 -->
     <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
       <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.5rem;">책 소개</p>
       <p style="font-family:'Noto Serif KR',serif; font-size:1.05rem; font-weight:400; line-height:1.7; color:var(--ink); margin-bottom:1.5rem;">"하고 싶었던 말을 하고 후회한 적 있나요?"</p>
@@ -931,7 +850,6 @@
       </div>
     </div>
 
-    <!-- 책 속에서 -->
     <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
       <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.5rem;">책 속에서</p>
       <div style="display:flex; flex-direction:column; gap:1.8rem;">
@@ -942,7 +860,6 @@
       </div>
     </div>
 
-    <!-- 서지 정보 -->
     <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
       <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem;">서지 정보</p>
       <div style="display:flex; flex-direction:column; gap:0.5rem; font-family:'EB Garamond',Georgia,serif; font-size:0.85rem; font-style:italic; color:var(--ink-faint); line-height:1.8;">
@@ -988,7 +905,7 @@
   </div>
 </div>
 
-
+<!-- 글 본문 모달 -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -1068,42 +985,20 @@
   }
 
   function submitForm(type) {
-    // 구독 신청
     if (type === 'subscribe') {
       const name  = document.getElementById('sub-name').value.trim();
       const email = document.getElementById('sub-email').value.trim();
       const phone = document.getElementById('sub-phone').value.trim();
       if (!name || !email || !phone) { alert('모든 항목을 입력해주세요.'); return; }
-
-      // 구글 폼으로 전송 (구글 폼 URL을 아래에 넣어주세요)
-      const SUBSCRIBE_FORM = 'https://docs.google.com/forms/d/e/YOUR_SUBSCRIBE_FORM_ID/formResponse';
-      const data = new FormData();
-      // 구글 폼 entry ID는 폼 만든 뒤 교체 필요
-      data.append('entry.000000001', name);
-      data.append('entry.000000002', email);
-      data.append('entry.000000003', phone);
-      fetch(SUBSCRIBE_FORM, { method: 'POST', body: data, mode: 'no-cors' });
-
       document.getElementById('subscribe-form-wrap').style.display = 'none';
       document.getElementById('subscribe-success').classList.add('show');
     }
-
-    // 책 주문
     if (type === 'book') {
       const name    = document.getElementById('book-name').value.trim();
       const email   = document.getElementById('book-email').value.trim();
       const phone   = document.getElementById('book-phone').value.trim();
       const address = document.getElementById('book-address').value.trim();
       if (!name || !email || !phone || !address) { alert('모든 항목을 입력해주세요.'); return; }
-
-      const BOOK_FORM = 'https://docs.google.com/forms/d/e/YOUR_BOOK_FORM_ID/formResponse';
-      const data = new FormData();
-      data.append('entry.000000001', name);
-      data.append('entry.000000002', email);
-      data.append('entry.000000003', phone);
-      data.append('entry.000000004', address);
-      fetch(BOOK_FORM, { method: 'POST', body: data, mode: 'no-cors' });
-
       document.getElementById('book-form-wrap').style.display = 'none';
       document.getElementById('book-success').classList.add('show');
     }
