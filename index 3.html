@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고은</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f0f0ee;
+      --cream-dark: #e8e8e5;
+      --ink: #1c1c1c;
+      --ink-light: #3e3e3c;
+      --ink-faint: #8e8e8a;
+      --accent: #6b9e96;
+      --rule: #d0d0cc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Noto Serif KR', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body { opacity: 0; animation: fadeIn 0.7s ease 0.1s forwards; }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ══════════════════════════════
+       NAV
+    ══════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 1.6rem 2.4rem;
+      pointer-events: none;
+    }
+
+    .nav-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      pointer-events: all;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .house-icon { width: 28px; height: 28px; transition: opacity 0.2s; }
+    .nav-menu-btn:hover .house-icon { opacity: 0.5; }
+
+    /* ══════════════════════════════
+       MENU OVERLAY
+    ══════════════════════════════ */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #1c1c1c;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      clip-path: circle(0% at calc(100% - 2.8rem) 2.8rem);
+      transition: clip-path 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+      pointer-events: none;
+    }
+
+    .menu-overlay.open {
+      clip-path: circle(160% at calc(100% - 2.8rem) 2.8rem);
+      pointer-events: all;
+    }
+
+    .menu-inner {
+      text-align: right;
+      padding: 2rem 4rem 2rem 2rem;
+    }
+
+    .menu-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .menu-items li { overflow: hidden; }
+
+    .menu-item-link {
+      display: block;
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      font-weight: 300;
+      color: rgba(107,158,150,0.5);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      transition: color 0.25s, transform 0.25s;
+      transform: translateY(110%);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .menu-overlay.open .menu-item-link {
+      transform: translateY(0);
+      transition: color 0.25s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menu-overlay.open .menu-items li:nth-child(1) .menu-item-link { transition-delay: 0.12s; }
+    .menu-overlay.open .menu-items li:nth-child(2) .menu-item-link { transition-delay: 0.2s; }
+    .menu-overlay.open .menu-items li:nth-child(3) .menu-item-link { transition-delay: 0.28s; }
+
+    .menu-item-link:hover { color: #6b9e96; }
+
+    .menu-sub {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.9rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease 0.42s, transform 0.4s ease 0.42s;
+    }
+
+    .menu-overlay.open .menu-sub { opacity: 1; transform: translateY(0); }
+
+    .menu-sub-link {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: rgba(245,240,232,0.3);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .menu-sub-link:hover { color: rgba(245,240,232,0.75); }
+
+    .menu-tagline {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.8rem;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: rgba(245,240,232,0.18);
+      letter-spacing: 0.12em;
+      opacity: 0;
+      transition: opacity 0.4s ease 0.48s;
+    }
+
+    .menu-overlay.open .menu-tagline { opacity: 1; }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    #home-section {
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: #1c1c1c;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: none;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-image {
+        object-fit: contain;
+      }
+    }
+
+    .hero-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #c8c8c5 0%, #a8a8a5 40%, #888885 100%);
+    }
+
+    /* ══════════════════════════════
+       PAGES
+    ══════════════════════════════ */
+    .page {
+      display: none;
+      min-height: 100vh;
+      animation: pageIn 0.45s ease;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 8rem 3rem 6rem;
+    }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-bottom: 3rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+
+    .page-back::before { content: '←'; margin-right: 2px; }
+    .page-back:hover { color: var(--ink); }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .section-rule { flex: 1; height: 1px; background: var(--rule); }
+
+    /* ── 글 목록 ── */
+    .writing-list { display: flex; flex-direction: column; }
+
+    .writing-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+    }
+
+    .writing-item:first-child { border-top: 1px solid var(--rule); }
+    .writing-item:hover .writing-title { opacity: 0.7; }
+
+    .writing-date {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.76rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      white-space: nowrap;
+    }
+
+    .writing-info { min-width: 0; }
+
+    .writing-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.3rem;
+    }
+
+    .writing-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--accent);
+      transition: opacity 0.2s;
+    }
+
+    .writing-arrow {
+      font-size: 1rem;
+      color: var(--rule);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .writing-item:hover .writing-arrow { color: var(--accent); transform: translateX(4px); }
+
+    .writing-empty {
+      padding: 4rem 0;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── 소개 ── */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-photo {
+      aspect-ratio: 3/4;
+      background: #b8b8b4;
+      overflow: hidden;
+    }
+
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(10%); }
+
+    .about-photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, #c0c0bc 0%, #a0a09c 100%);
+    }
+
+    .about-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.2rem;
+    }
+
+    .about-sub {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+      margin-bottom: 2.2rem;
+    }
+
+    .about-body {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 2.05;
+      color: var(--ink-light);
+      margin-bottom: 2.5rem;
+    }
+
+    .about-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    .about-link {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .about-link:hover { opacity: 0.6; }
+
+    /* ── 푸터 ── */
+    footer {
+      margin-top: 5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .footer-text {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: var(--ink-faint);
+    }
+
+    /* ══════════════════════════════
+       CHOIKO 페이지
+    ══════════════════════════════ */
+    .choiko-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    .product-card {
+      border: 1px solid var(--rule);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .product-card:hover { border-color: var(--accent); }
+
+    .product-image {
+      aspect-ratio: 4/3;
+      background: linear-gradient(160deg, #ccccca 0%, #b0b0ae 100%);
+      overflow: hidden;
+    }
+
+    .product-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .product-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .product-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .product-price {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .product-cta {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+
+    /* 상품 모달 */
+    .shop-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,28,28,0.55);
+      z-index: 400;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 4vh 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(3px);
+    }
+
+    .shop-modal-overlay.open { display: flex; }
+
+    .shop-modal {
+      background: var(--cream);
+      max-width: 700px;
+      width: 100%;
+      padding: 3.5rem;
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+
+    .shop-modal-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink-faint);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .shop-modal-close:hover { color: var(--ink); }
+    .shop-modal-tag { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.8rem; }
+    .shop-modal-title { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.5rem; }
+    .shop-modal-price { font-family: 'EB Garamond', Georgia, serif; font-size: 1rem; font-style: italic; color: var(--accent); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+    .shop-modal-desc { font-size: 0.93rem; font-weight: 300; line-height: 2.1; color: var(--ink-light); margin-bottom: 2.5rem; }
+
+    .shop-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+
+    .form-input {
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-input:focus { border-color: var(--ink); }
+
+    .form-submit {
+      margin-top: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .form-submit:hover { background: var(--accent); }
+
+    .payment-notice {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      line-height: 1.8;
+      padding: 1.2rem;
+      border: 1px solid var(--rule);
+      margin-top: 0.5rem;
+    }
+
+    .payment-notice a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+    .form-success { display: none; text-align: center; padding: 2.5rem 1rem; }
+    .form-success.show { display: block; }
+    .form-success-title { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.8rem; }
+    .form-success-text { font-family: 'EB Garamond', Georgia, serif; font-size: 0.88rem; font-style: italic; color: var(--ink-faint); line-height: 1.9; }
+
+    /* ══════════════════════════════
+       MODAL (글 본문)
+    ══════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,28,28,0.55);
+      z-index: 400;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 5vh 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--cream);
+      max-width: 660px;
+      width: 100%;
+      padding: 4rem;
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink-faint);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--ink); }
+    .modal-tag { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
+    .modal-title { font-family: 'Noto Serif KR', serif; font-size: 1.65rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.6rem; }
+    .modal-date { font-family: 'EB Garamond', serif; font-size: 0.78rem; font-style: italic; color: var(--ink-faint); margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+    .modal-body { font-size: 1rem; font-weight: 300; line-height: 2.1; color: var(--ink-light); }
+    .modal-body p + p { margin-top: 1.5em; }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 1.3rem 1.5rem; }
+      .page-inner { padding: 6rem 1.5rem 4rem; }
+      .writing-item { grid-template-columns: 56px 1fr auto; gap: 1rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { max-width: 160px; }
+      .modal { padding: 2.5rem 1.5rem; }
+      .choiko-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .shop-modal { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="메뉴 열기">
+    <svg class="house-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="3,14 14,4 25,14" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="6,12 6,24 22,24 22,12" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="11" y="17" width="6" height="7" stroke="#6b9e96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-inner">
+    <ul class="menu-items">
+      <li><button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button></li>
+      <li><button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button></li>
+      <li><button class="menu-item-link" onclick="showPage('about')">소개</button></li>
+    </ul>
+    <div class="menu-sub">
+      <a class="menu-sub-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
+      <a class="menu-sub-link" href="https://instagram.com/_choiko_" target="_blank">@_choiko_</a>
+    </div>
+  </div>
+  <span class="menu-tagline">끼리끼리는 도움이 돼</span>
+</div>
+
+<!-- HERO -->
+<div id="home-section">
+  <img class="hero-image" src="cover.jpg" alt="">
+</div>
+
+<!-- 어디까지 말했더라 페이지 -->
+<div class="page" id="page-writings">
+  <div class="page-inner">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">어디까지 말했더라</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="writing-list" id="writingList">
+
+      <div class="writing-item" onclick="openModal('에세이', 'ep.2 — 재난 이후의 삶처럼', '2026. 5. 8', `
+        <p>집에 오면서 생각했다. 이쯤 되면 슬퍼야 할 것 같은데? 슬프지 않았다. 이런 노래를 들으면 울컥해야 할 것 같은데? 울컥하지 않았다. 그렇다면 놀고 싶거나 술을 마시고 싶은가? 그렇지도 않았다. 약효가 돌기 시작했나 보다. 평온했다. 아무렇지 않았다.</p>
+        <p>이상했다. 잔잔한 바다, 태풍이 휩쓸고 간 이후.. 부서진 뗏목 가운데 둥둥 앉아서, 아무 일도 없었던 것처럼 잔잔한 세상. 그러니까 정말 아무 일도 없었던 것처럼...</p>
+        <p>조증이 재난처럼 휩쓸고 지나간 지난 몇 달을 나는 어떻게 받아들여야 할까? 일을 그만 두고 죄책감에 휩싸여 일상을 망치거나 하지도 않았다. 어쩔 수 없는 일을 어쩔 수 없는 일로 두고 우선 해야 할 일을 했다. 일하느라, 그리고 일하느라 받은 스트레스를 풀려고 노느라, 허비했던 시간을 보상이라도 하는 듯 며칠은 열심히 머리를 싸매고 글을 썼다. 다시 병원에 갔고 약도 타 왔다.</p>
+        <p>그러니까 또 나아지고 있다. 이럴 땐 궁금해진다. 몇 번이나 이 과정을 반복해야 진정으로 나아지는 거지? 이전에라고 이런 일이 없었던 게 아니다. 나는 자주 고꾸라졌고 또 다시 일어나 엉금엉금 기었다. 그러다가 갑자기 벌떡 일어나 달렸고, 또 다시 고꾸라졌다. 가끔은 혼자 일어났고 가끔은 사람들의 손에 이끌려 일어났다. 이런 일이 계속 반복되는 것이 인생이라면 나는 이 과정에 질리지 않을 수 있을까? 매번 처음인 것처럼 손을 툭툭 털고 일어날 수 있을까? 아니면 더이상은 안 넘어지겠다며 낙법을 시도하는 날도 올까?</p>
+        <p>걱정되는 것은 더이상 일어나고 싶지 않아질까 봐. 이 과정에 너무 질려서, 일어나도 또 넘어질 텐데, 일어나서 뭐 해, 하는 순간이 올까 봐.</p>
+        <p>기억력이 좋은 사람일수록 우울해질 확률이 높다고 한다. 나는 수치스러웠던 순간을 유독 잘 기억한다. 되새기고 또 되새겨서 날 계속 해서 모욕한다. 고꾸라지는 순간은 매우 수치스럽다. 사람들에게 피해를 입히기도 하고, 약속을 깨뜨리기도 한다. 그 감각은 이미 너무 많이 되새겨서 이미 나를 지배하고 있다. 미안하다고 말해도 수습되지 않을 일들. 그래서 미안하다고도 말하지 못했던 일들.</p>
+        <p>부서진 뗏목 위에서 이런 생각을 하고 있다. 어디로 가서 이 수치심을 털어내야 하지. 내가 한 구린 짓들을 모두 바닷속 깊은 곳에 던지고 멀리 멀리 떠나고 싶은 충동이 들었다. 그러면 마음이 좀 편해지시렵니까? 아니겠지. 단단한 끈에 묶인 것처럼 나를 졸졸 뒤따라 오다가 결국 나까지 바닷속으로 끌어당기겠지. 돌덩이를 끌어안고 어디로 가야 하나 멍하게 있다. 나는 지금 그런 단계다. 마무리 짓거나 제대로 시작할 일을 찾지 못한 채, 다음 스테이지가 어디인지도 모른 채 잠깐 렉이 걸린 상태.</p>
+        <p>나아지려면 많은 것을 기억해야지, 하면서도, 잔잔한 바다를 유지하려면 적당히 기억하는 법도 알아내야 할 텐데 싶다. 결국 내가 할 수 있는 일은 별거 없다. 태풍이 휩쓸고 간 흔적을 재정비하고, 어디로 노를 저을지 찾아보는 일. 지도를 펼치고 세상을 공부하는 일. 내가 가지고 갈 가방의 용량이 정해져 있다면, 이렇게 공부하며 채운 것들이 수치심을 조금이나마 밀어낼 수도 있지 않을까 싶다.</p>
+        <p>이런 글을 쓰면서도 기분이 깊이 떨어지지 않는 것이 신기하다. 재미없을지도 모르겠다. 집에 돌아가며, 양치하며, 글을 쓰다 우는 일이 줄어든다면. 하지만 또 다른 재미가 생기겠지. 그것이 무엇인지는 아직 나는 모른다. 아직 모른다는 것이 나를 조금 기쁘게 한다. 기대하게 한다. 그 힘으로 노를 조금 저어볼 수 있을 것 같다.</p>
+      `)">
+        <span class="writing-date">May 8</span>
+        <div class="writing-info">
+          <p class="writing-tag">에세이</p>
+          <p class="writing-title">ep.2 — 재난 이후의 삶처럼</p>
+        </div>
+        <span class="writing-arrow">→</span>
+      </div>
+
+      <div class="writing-item" onclick="openModal('에세이', 'ep.1 — 아름답고 부질있는 것', '2026. 5. 7', `
+        <p>근 몇 년 사이에 아름다운 것, 옳은 것만 남기고 그렇지 못한 것은 모두 없애버리겠다고 생각하는 사람이 늘어나고 있는 것 같다. 지금도 얼마나 많은 존재가 옳지 못하다, 아름답지 못하다는 이유로 사라지고 있을지.</p>
+        <p>쓸모없고 아름답지도 않은 것도 존재하는 세상이야말로 아름다운 세상이지 않을까?</p>
+        <p>말은 이렇게 하지만 나도 어쩔 수 없이 의미와 아름다움을 좇게 된다. 천성이 그러한 것 같다. 내가 좇는 아름다움이 뭔가를 소외시키고 있는 것은 아닌가.</p>
+        <p>길란 작가의 2026년 젊은 작가상 수상작품집 수상소감에 있는 구절이다. 내게 어떨 때 눈물을 흘리느냐 물어보면, 보통 두 가지의 경우가 있다고 대답한다. 하나는 슬플 때, 하나는 아름다울 때. 사람들이 보통 감동 받았다고 말하는 순간이 아마 내가 아름답다고 느낄 때가 아닌가 싶다. 그럼 나는 어떤 것이 아름답다고 느끼지? 그것은 내가 못생겼다고 생각하는 것과 관련이 있다. 나는 진실되지 않은 것을 못생겼다고 생각한다. 가짜로 꾸며내고, 다른 척하는 것. 추하고 더러워도 그것을 진실되게 드러낸다면 오히려 아름답게 보인다.</p>
+        <p>그것이 나쁘다고 생각한 적은 없었다. 솔직하지 못한 사람들은 못생겼어. 자기 자신을 받아들이지 못하고 항상 아닌 척 하고, 상처 받고... 부질없고 하찮다고 생각했다. 내가 진정성 있다는 어떤 우월의식도 있었다. 하지만 나 또한 자주 척했고, 오히려 진짜처럼 보이려고 너무 노력하다 못해 나조차 뭐가 진짜인지 구별하지 못하는 지경이었다. 사랑받기 위해서라면 사랑도 척할 수 있었고, 진짜 사랑한다고 나를 믿게 만들기도 했다. 막상 떠나고 나면 알았다. 와, 나 저 사람 전혀 안 사랑했구나. 반대로 정말 사랑하는 사람을 만나면 겁이 나서 별로 사랑하지 않는 척 했다. 결점을 까발리며 이 정도인데도 날 사랑할 수 있니? 자꾸 물어보고 싶었다. 그가 싫어하는 행동을 하며 신경질을 살살 돋구었다. 화내면 그제서야 안심이 됐다. 그래, 결국 사랑하지 못하겠지? 너도 나를 떠나갈 거지? 다 거짓말이었지. 하찮고 부질없는 건 내 쪽이었다.</p>
+        <p>무언가 아름답다고 생각하는 것은, 동시에 무언가를 못생겼다고 생각하는 것이 되기도 하기 때문에 어렵다. 못생긴 것은 보고 싶지 않다. 자연스레 밀어내게 된다. 가짜 같은 것, 멍청한 것, 자기만 생각하는 것... 하지만 나에게도 그러한 못생긴 부분이 있고, 그것을 보지 않으려고 할수록 그 부분은 커지게 된다. 세상의 못생긴 부분도 똑같다. 내가 문제를 보고 싶지 않아 한다고 하여 그들이 사라지는 것은 아니며, 오히려 직면하고 문제를 해결하려 들어야 조금이라도 나아질 수 있다. 물론, 그 안으로 들어가 싸우는 것은 아름다운 것이 틈틈이 채워지지 않으면 지속하기 힘들기도 하다.</p>
+        <p>때문에 내게 진정성 추구는 언젠가부터 부끄러운 점이 되었다. 진정성, 당사자성, 사실 그런 게 무슨 의미가 있지? 사과를 제대로 하려면 손글씨로 사과문을 작성해서 올려야 한다. 그게 훨씬 진정성 있어 보이니까. 그런데 그게 진짜 진심을 판가름 할 수 있는가? 겉으로 보이는 이미지와 내면의 마음은 다를 수 있다. 그리고 그것은 무조건 나쁜 게 아니다. 오히려 남을 위하는 행동이 될 수도 있다.</p>
+        <p>최근 독서모임에서도 그런 말을 했다. 진정성을 너무 중요시 하는 게 우리 세대의 문제인 것 같다고. 원래 사람들은 가면을 좀 쓰면서 사는 건데, 그 덕분에 사회가 조금 다정하게 유지되는 것도 있는데, 이제 그러지 말고 가면을 벗으라고, 솔직해지라고, 온세상이 떠들고 있는 것 같다. 그래서 다들 너무 막 진심을 말하고, 서로를 상처주는 것에 두려움이 없다. 러브 유어셀프가 대신 남은 사랑하지 말라는 뜻은 아니었을 텐데.</p>
+        <p>나는 놀라울 정도로 많은 사람들을 궁금해한다. 그것은 나를 살게 하는 원동력이자, 아름다운 것을 보고 싶어하는 욕망이기도 하다. 점점 삭막해지는 세상 속에서도 그럴 수 있는 이유 중 하나는 누구에게나 웬만해서는 조금이라도 좋은 면이 있다고 믿기 때문이다. 그게 진짜 그렇다고 생각해서 믿는다기보다는 그게 내게 도움이 돼서 믿는다. 종교 같은 것이다. 그 면을 찾으려고 애쓰는 노력 같은 게 나는 진정으로 아름답다고 믿는다. 대충 보고 덮는 마음이 아니라, 그래도 살펴보려고 애쓰는 마음. 누구에게나 양면이 있다고 믿는 마음. 그래서 결국 포기하지 않는 마음.</p>
+        <p>나 또한 길란 작가처럼 의미와 아름다움을 사랑하고 어쩌면 천성이 그러한 것 같다. 언젠가 친한 언니가 자신이 인간관계에서 온 마음을 항상 쓰는 게 힘들다고 털어놓은 적 있다. 그러지 말라고 얘기하고 싶었으나, 그럴 수 없을 것 같았다. 그 언니의 천성인 것이다. 언니는 그렇게 힘듦을 토로하다가, 마지막엔 결국 눈물을 삼키며 말했다. 근데, 나도 알아. 난 계속 이럴 거야. 조금 웃었던 것 같기도 한데. 나는 거기서 눈물이 터졌다. 당시 함께 있던 전애인은 내가 슬퍼서 운 게 아니라는 것을 알아차렸다. 아름다웠지, 그 진심이? 집에 가며 되물을 때 조금 놀랐다. 내가 아름다움에 우는 것을 아는구나. 그랬다. 그런 진심을 어쩔 수 없이 나는 영원토록 아름다워 할 것이고, 못생긴 걸 숨기는 마음을 조금 미워할 것이다. 하지만 그래도 계속 애쓸 것이다. 보기 싫은 마음을 꾹 참으려고, 절대 쉽게 무시하지 않으려고, 그래도 같이 살아가 보려고, 알아가 보려고. 그것이 나의 불안을 점차 잠재우길 바란다. 그 또한 아름답지 않을까.</p>
+      `)">
+        <span class="writing-date">May 7</span>
+        <div class="writing-info">
+          <p class="writing-tag">에세이</p>
+          <p class="writing-title">ep.1 — 아름답고 부질있는 것</p>
+        </div>
+        <span class="writing-arrow">→</span>
+      </div>
+
+    </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- CHOIKO 페이지 -->
+<div class="page" id="page-choiko">
+  <div class="page-inner">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">CHOIKO</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="choiko-grid">
+      <div class="product-card" onclick="openShopModal('subscribe')">
+        <div class="product-image">
+          <img src="subscribe-image.png" alt="어디까지 말했더라">
+        </div>
+        <div>
+          <p class="product-tag">유료 구독</p>
+          <p class="product-title">어디까지 말했더라</p>
+        </div>
+        <p class="product-price">월 10,000원</p>
+        <p class="product-cta">신청하기 →</p>
+      </div>
+
+      <div class="product-card" onclick="openShopModal('book')">
+        <div class="product-image">
+          <img src="book-cover.jpg" alt="안 할 수도 있었던 말">
+        </div>
+        <div>
+          <p class="product-tag">독립출판</p>
+          <p class="product-title">안 할 수도 있었던 말</p>
+        </div>
+        <p class="product-price">15,000원</p>
+        <p class="product-cta">구매하기 →</p>
+      </div>
+    </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- 소개 페이지 -->
+<div class="page" id="page-about">
+  <div class="page-inner">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">소개</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="about-inner">
+      <div class="about-photo">
+        <img src="about.jpg" alt="최고은">
+      </div>
+      <div class="about-text">
+        <h2 class="about-name">최고은</h2>
+        <p class="about-sub">작가</p>
+        <div class="about-body">
+          <p>창원에서 학창시절을 보내고 서울로 와 혼자 살고 있다. 대학에서 영화를 전공했다. 에세이 연재를 하고, 커피를 내리면서 살고 있다. 키우는 고양이의 이름은 회오리다. 18살에 첫 책을 출간한 유망주였으나 지금은 뭐가 될지 모르겠다. (동시에 알고 있다.)</p>
+        </div>
+        <div class="about-links">
+          <a class="about-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- 구독 신청 모달 -->
+<div class="shop-modal-overlay" id="shopModal-subscribe" onclick="closeShopModalOutside(event, 'subscribe')">
+  <div class="shop-modal">
+    <button class="shop-modal-close" onclick="closeShopModal('subscribe')">✕</button>
+    <p class="shop-modal-tag">유료 구독</p>
+    <h2 class="shop-modal-title">어디까지 말했더라</h2>
+    <p class="shop-modal-price">월 10,000원</p>
+    <p class="shop-modal-desc">한 달 동안 매일 한 편의 글을 쓰는 프로젝트에 도전합니다. 절반은 사이트에 게시할 예정이고, 절반은 유료 구독자 분들에게만 전달할 예정입니다. '어디까지 말했더라'는 에세이, 픽션과 논픽션이 섞인 자유로운 연재입니다. 가끔은 영상 에세이가 될 수도, 만화가 될 수도 있습니다. 저의 글이 궁금하고 마음에 드신다면 응원 부탁드립니다.</p>
+
+    <div id="subscribe-form-wrap">
+      <div class="shop-form">
+        <div class="form-field">
+          <label class="form-label">이름</label>
+          <input class="form-input" id="sub-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="form-field">
+          <label class="form-label">이메일</label>
+          <input class="form-input" id="sub-email" type="email" placeholder="hello@email.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">연락처</label>
+          <input class="form-input" id="sub-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+        <button class="form-submit" onclick="submitForm('subscribe')">신청서 제출하기</button>
+      </div>
+      <div class="payment-notice">
+        제출 후 아래 방법으로 입금해 주세요.<br>
+        카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank">송금 링크 열기</a><br>
+        계좌이체 → 카카오뱅크 3333-09-4004564 최고은
+      </div>
+    </div>
+    <div class="form-success" id="subscribe-success">
+      <p class="form-success-title">신청해주셔서 감사합니다.</p>
+      <p class="form-success-text">입금 확인 후 이메일로 안내드릴게요.<br>카카오페이 또는 계좌이체로 10,000원을 보내주세요.<br><br>카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank" style="color:var(--accent)">송금 링크</a><br>카카오뱅크 3333-09-4004564 최고은</p>
+    </div>
+  </div>
+</div>
+
+<!-- 책 구매 모달 -->
+<div class="shop-modal-overlay" id="shopModal-book" onclick="closeShopModalOutside(event, 'book')">
+  <div class="shop-modal" style="max-width:780px;">
+    <button class="shop-modal-close" onclick="closeShopModal('book')">✕</button>
+    <p class="shop-modal-tag">독립출판</p>
+    <h2 class="shop-modal-title">안 할 수도 있었던 말</h2>
+    <p class="shop-modal-price">15,000원 (배송비 포함)</p>
+
+    <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem;">
+      <img src="book-cover.jpg" alt="표지" style="width:100%; display:block;">
+      <img src="book-mockup.jpg" alt="펼친 책" style="width:100%; display:block;">
+      <img src="book-toc.jpg" alt="차례" style="width:100%; display:block;">
+      <img src="book-intro1.jpg" alt="본문" style="width:100%; display:block;">
+      <img src="book-intro2.jpg" alt="본문" style="width:100%; display:block;">
+      <img src="book-page1.jpg" alt="본문" style="width:100%; display:block;">
+      <img src="book-page2.jpg" alt="본문" style="width:100%; display:block;">
+    </div>
+
+    <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
+      <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.5rem;">책 소개</p>
+      <p style="font-family:'Noto Serif KR',serif; font-size:1.05rem; font-weight:400; line-height:1.7; color:var(--ink); margin-bottom:1.5rem;">"하고 싶었던 말을 하고 후회한 적 있나요?"</p>
+      <div style="font-size:0.93rem; font-weight:300; line-height:2.1; color:var(--ink-light);">
+        <p>교수님이 수업 시간에 이런 질문을 하셨다. 학생들은 너도 나도 자신들의 경험을 털어놓기 시작했다.</p>
+        <p style="margin-top:1.2em;">그러나 나는 단 한 마디도 할 수 없었다. 그랬던 기억이 없었기 때문이다. 그러니까 나는 '할 수 있는' 말만 하며 살아왔다. 괜찮은 분위기에서, 괜찮은 표현을 골라, 괜찮은 사람들에게, 괜찮은 말만 하며 살아왔던 것이다.</p>
+        <p style="margin-top:1.2em;">이 책은 그 깨달음에서 시작되었다.</p>
+        <p style="margin-top:1.2em;">책 &lt;안 할 수도 있었던 말&gt;은 2020년부터 2024년까지 차근차근 써온 글을 엮은 에세이다. 이 중, 대부분은 내가 안 할 수도 있었던 말이다. 하지만, 동시에 간절히 하고 싶었던 말이기도 하다.</p>
+        <p style="margin-top:1.2em;">유치하고 부끄러운 마음부터 어둡고 내밀한 감정까지 모두 토해냈다. 20대, 젊은 날의 우울과 다정을 문장으로 다지며 나는 조금 더 나아질 수 있었다. "굳이?" 하는 생각으로 많은 말을 참고 온 이들에게, 이 책이 대신하여 공감과 위로를 전해줄 수 있길 바란다.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
+      <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.5rem;">책 속에서</p>
+      <div style="display:flex; flex-direction:column; gap:1.8rem;">
+        <blockquote style="font-family:'EB Garamond',Georgia,serif; font-size:0.97rem; font-style:italic; line-height:2; color:var(--ink-light); padding-left:1.2rem; border-left:1px solid var(--rule);">내 사랑만을 받은 채 멀리 떠나버려도 괜찮다. 그 기억만으로도 나는 지속될 수 있어. 그리워 하는 마음도 사랑의 일부. 우리가 함께 만들었던 세계는 무너졌지만 그 마음만큼은 기억하고 있다. 그러니 나는 네가 떠나가도 계속 사랑할 수 있어. <span style="font-size:0.78rem; color:var(--ink-faint);">74p</span></blockquote>
+        <blockquote style="font-family:'EB Garamond',Georgia,serif; font-size:0.97rem; font-style:italic; line-height:2; color:var(--ink-light); padding-left:1.2rem; border-left:1px solid var(--rule);">어떤 생각은 구덩이를 파서 사람을 끝없이 추락시킵니다. 저는 매일 멀어지는 하늘을 올려다보며 묻죠. 왜? 어쩌다 이렇게 됐지? 언제부터? 의사 선생님이 가장 처음 그런 기분을 느낀 게 언제인 것 같냐고 했을 때... 저는 그만 웃고 말았어요. <span style="font-size:0.78rem; color:var(--ink-faint);">115p</span></blockquote>
+        <blockquote style="font-family:'EB Garamond',Georgia,serif; font-size:0.97rem; font-style:italic; line-height:2; color:var(--ink-light); padding-left:1.2rem; border-left:1px solid var(--rule);">나는 나와 비슷한 슬픔의 크기를 가진 사람에게 줄곧 끌려 왔어. 너의 슬픔과 나의 슬픔이 닮아 있을 때 나는 우리가 사랑에 빠질 수 있을 것만 같은 느낌이 든다. 누군가와 대화할 때마다 그 사람이 가진 슬픔의 깊이를 가늠하는 버릇이 있는 것 같아. 너는 어디쯤까지 들어가 있니. 어디까지 아파봤니. <span style="font-size:0.78rem; color:var(--ink-faint);">120p</span></blockquote>
+        <blockquote style="font-family:'EB Garamond',Georgia,serif; font-size:0.97rem; font-style:italic; line-height:2; color:var(--ink-light); padding-left:1.2rem; border-left:1px solid var(--rule);">두고 봐. 나는 나를 어떻게 해서든 살려낼 것이다. <span style="font-size:0.78rem; color:var(--ink-faint);">146p</span></blockquote>
+      </div>
+    </div>
+
+    <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
+      <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem;">서지 정보</p>
+      <div style="display:flex; flex-direction:column; gap:0.5rem; font-family:'EB Garamond',Georgia,serif; font-size:0.85rem; font-style:italic; color:var(--ink-faint); line-height:1.8;">
+        <span>가격 — 15,000원</span>
+        <span>발행일 — 2025년 3월 19일</span>
+        <span>판형 — 128 × 182mm</span>
+        <span>쪽수 — 176p</span>
+        <span>내지 — 백색모조 100g</span>
+        <span>표지 — 랑데뷰 240g</span>
+      </div>
+    </div>
+
+    <div id="book-form-wrap">
+      <div class="shop-form">
+        <div class="form-field">
+          <label class="form-label">이름</label>
+          <input class="form-input" id="book-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="form-field">
+          <label class="form-label">이메일</label>
+          <input class="form-input" id="book-email" type="email" placeholder="hello@email.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">연락처</label>
+          <input class="form-input" id="book-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+        <div class="form-field">
+          <label class="form-label">배송지 주소</label>
+          <input class="form-input" id="book-address" type="text" placeholder="서울시 마포구 ...">
+        </div>
+        <button class="form-submit" onclick="submitForm('book')">주문서 제출하기</button>
+      </div>
+      <div class="payment-notice">
+        제출 후 아래 방법으로 입금해 주세요.<br>
+        카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank">송금 링크 열기</a><br>
+        계좌이체 → 카카오뱅크 3333-09-4004564 최고은
+      </div>
+    </div>
+    <div class="form-success" id="book-success">
+      <p class="form-success-title">주문해주셔서 감사합니다.</p>
+      <p class="form-success-text">입금 확인 후 발송해드릴게요.<br>카카오페이 또는 계좌이체로 15,000원을 보내주세요.<br><br>카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank" style="color:var(--accent)">송금 링크</a><br>카카오뱅크 3333-09-4004564 최고은</p>
+    </div>
+  </div>
+</div>
+
+<!-- 글 본문 모달 -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="modal-tag" id="modalTag"></p>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-date" id="modalDate"></p>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const homeSection = document.getElementById('home-section');
+
+  function toggleMenu() {
+    menuOverlay.classList.contains('open') ? closeMenu() : openMenu();
+  }
+
+  function openMenu() {
+    menuOverlay.classList.add('open');
+    menuBtn.classList.add('menu-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    menuOverlay.classList.remove('open');
+    menuBtn.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  }
+
+  function showPage(name) {
+    closeMenu();
+    homeSection.style.display = 'none';
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function showHome() {
+    closeMenu();
+    homeSection.style.display = 'block';
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    window.scrollTo(0, 0);
+  }
+
+  function openModal(tag, title, date, body) {
+    document.getElementById('modalTag').textContent = tag;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDate').textContent = date;
+    document.getElementById('modalBody').innerHTML = body;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function openShopModal(id) {
+    document.getElementById('shopModal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeShopModal(id) {
+    document.getElementById('shopModal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeShopModalOutside(e, id) {
+    if (e.target === document.getElementById('shopModal-' + id)) closeShopModal(id);
+  }
+
+  function submitForm(type) {
+    if (type === 'subscribe') {
+      const name  = document.getElementById('sub-name').value.trim();
+      const email = document.getElementById('sub-email').value.trim();
+      const phone = document.getElementById('sub-phone').value.trim();
+      if (!name || !email || !phone) { alert('모든 항목을 입력해주세요.'); return; }
+      document.getElementById('subscribe-form-wrap').style.display = 'none';
+      document.getElementById('subscribe-success').classList.add('show');
+    }
+    if (type === 'book') {
+      const name    = document.getElementById('book-name').value.trim();
+      const email   = document.getElementById('book-email').value.trim();
+      const phone   = document.getElementById('book-phone').value.trim();
+      const address = document.getElementById('book-address').value.trim();
+      if (!name || !email || !phone || !address) { alert('모든 항목을 입력해주세요.'); return; }
+      document.getElementById('book-form-wrap').style.display = 'none';
+      document.getElementById('book-success').classList.add('show');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeMenu(); closeShopModal('subscribe'); closeShopModal('book'); }
+  });
+</script>
+</body>
+</html>
