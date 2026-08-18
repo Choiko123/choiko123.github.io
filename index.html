@@ -1036,12 +1036,20 @@
     if (e.target === document.getElementById('shopModal-' + id)) closeShopModal(id);
   }
 
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz4_1MLCLtWqnV3O29MbP2qD9vexqIRADvt8vdvnZWnRkEKAiYzneGxEXvraZrKxeGf5w/exec';
+
   function submitForm(type) {
     if (type === 'subscribe') {
       const name  = document.getElementById('sub-name').value.trim();
       const email = document.getElementById('sub-email').value.trim();
       const phone = document.getElementById('sub-phone').value.trim();
       if (!name || !email || !phone) { alert('모든 항목을 입력해주세요.'); return; }
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name: name, email: email, phone: phone })
+      });
       document.getElementById('subscribe-form-wrap').style.display = 'none';
       document.getElementById('subscribe-success').classList.add('show');
     }
