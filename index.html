@@ -1048,7 +1048,7 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ name: name, email: email, phone: phone })
+        body: JSON.stringify({ type: 'subscribe', name: name, email: email, phone: phone })
       });
       document.getElementById('subscribe-form-wrap').style.display = 'none';
       document.getElementById('subscribe-success').classList.add('show');
@@ -1059,6 +1059,12 @@
       const phone   = document.getElementById('book-phone').value.trim();
       const address = document.getElementById('book-address').value.trim();
       if (!name || !email || !phone || !address) { alert('모든 항목을 입력해주세요.'); return; }
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ type: 'book', name: name, email: email, phone: phone, address: address })
+      });
       document.getElementById('book-form-wrap').style.display = 'none';
       document.getElementById('book-success').classList.add('show');
     }
