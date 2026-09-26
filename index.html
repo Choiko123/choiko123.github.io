@@ -121,6 +121,7 @@
     .menu-overlay.open .menu-items li:nth-child(1) .menu-item-link { transition-delay: 0.12s; }
     .menu-overlay.open .menu-items li:nth-child(2) .menu-item-link { transition-delay: 0.2s; }
     .menu-overlay.open .menu-items li:nth-child(3) .menu-item-link { transition-delay: 0.28s; }
+    .menu-overlay.open .menu-items li:nth-child(4) .menu-item-link { transition-delay: 0.36s; }
 
     .menu-item-link:hover { color: #6b9e96; }
 
@@ -604,6 +605,163 @@
     .modal-body p + p { margin-top: 1.5em; }
 
     /* ══════════════════════════════
+       잠자코 (매거진)
+    ══════════════════════════════ */
+    .page-inner.wide { max-width: 1080px; }
+
+    .mag-intro {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--ink-light);
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    .mag-views {
+      display: flex;
+      gap: 1.6rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .mag-view-btn {
+      background: none;
+      border: none;
+      padding: 0 0 4px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-faint);
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .mag-view-btn:hover { color: var(--ink); }
+    .mag-view-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .mag-group { margin-bottom: 4.5rem; }
+    .mag-group:last-child { margin-bottom: 0; }
+
+    .mag-group-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 0.9rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+      flex-wrap: wrap;
+    }
+
+    .mag-group-no {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.9rem;
+      font-style: italic;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .mag-group-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .mag-group-sub {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-left: auto;
+    }
+
+    .mag-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 1.8rem;
+    }
+
+    .mag-card { cursor: pointer; min-width: 0; }
+
+    .mag-thumb {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--cream-dark);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .mag-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mag-card:hover .mag-thumb img { transform: scale(1.035); }
+
+    /* 썸네일 이미지가 없을 때 */
+    .mag-thumb-blank {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.1rem;
+      background: #d9dedc;
+      transition: background 0.3s;
+    }
+
+    .mag-card:hover .mag-thumb-blank { background: #cfd8d5; }
+
+    .mag-thumb-blank .blank-no {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .mag-thumb-blank .blank-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--ink-light);
+      word-break: keep-all;
+    }
+
+    .mag-meta {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.76rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-bottom: 0.35rem;
+    }
+
+    .mag-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink);
+      word-break: keep-all;
+      transition: color 0.2s;
+    }
+
+    .mag-card:hover .mag-title { color: var(--accent); }
+
+    .mag-author {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--ink-faint);
+      margin-top: 0.3rem;
+    }
+
+    .modal-cover { width: 100%; display: block; margin-bottom: 2.2rem; }
+    .modal-cover:empty, .modal-cover[src=""] { display: none; }
+
+    /* ══════════════════════════════
        RESPONSIVE
     ══════════════════════════════ */
     @media (max-width: 768px) {
@@ -615,6 +773,9 @@
       .modal { padding: 2.5rem 1.5rem; }
       .choiko-grid { grid-template-columns: 1fr; gap: 2rem; }
       .shop-modal { padding: 2.5rem 1.5rem; }
+      .mag-grid { grid-template-columns: 1fr 1fr; gap: 2.2rem 1rem; }
+      .mag-group-sub { margin-left: 0; width: 100%; }
+      .mag-title { font-size: 0.92rem; }
     }
   </style>
 </head>
@@ -636,6 +797,7 @@
   <div class="menu-inner">
     <ul class="menu-items">
       <li><button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button></li>
+      <li><button class="menu-item-link" onclick="showPage('jamjako')">잠자코</button></li>
       <li><button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button></li>
       <li><button class="menu-item-link" onclick="showPage('about')">소개</button></li>
     </ul>
@@ -746,6 +908,29 @@
       </div>
 
     </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- 잠자코 페이지 -->
+<div class="page" id="page-jamjako">
+  <div class="page-inner wide">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">잠자코</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="mag-views" role="tablist">
+      <button class="mag-view-btn active" data-view="all" onclick="setMagView('all')">전체 보기</button>
+      <button class="mag-view-btn" data-view="issue" onclick="setMagView('issue')">호별 보기</button>
+      <button class="mag-view-btn" data-view="author" onclick="setMagView('author')">작가별 보기</button>
+    </div>
+
+    <div id="magList"></div>
 
     <footer>
       <span class="footer-text">© 2026</span>
@@ -961,6 +1146,7 @@
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-cover" id="modalCover" src="" alt="">
     <p class="modal-tag" id="modalTag"></p>
     <h2 class="modal-title" id="modalTitle"></h2>
     <p class="modal-date" id="modalDate"></p>
@@ -994,6 +1180,7 @@
     homeSection.style.display = 'none';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
+    if (name === 'jamjako') setMagView('all');
     window.scrollTo(0, 0);
   }
 
@@ -1004,7 +1191,10 @@
     window.scrollTo(0, 0);
   }
 
-  function openModal(tag, title, date, body) {
+  function openModal(tag, title, date, body, cover) {
+    const coverEl = document.getElementById('modalCover');
+    if (cover) { coverEl.src = cover; coverEl.style.display = 'block'; }
+    else { coverEl.removeAttribute('src'); coverEl.style.display = 'none'; }
     document.getElementById('modalTag').textContent = tag;
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalDate').textContent = date;
@@ -1085,6 +1275,125 @@
       '<img src="ep3-image.jpg" alt="" style="width:100%; margin-top:2rem; display:block;">'
     );
   };
+
+  /* ══════════════════════════════════════════════
+     잠자코 — 여기만 고치면 목록이 자동으로 바뀝니다
+     ──────────────────────────────────────────────
+     1) 새 호가 나오면 JAMJAKO_ISSUES에 한 줄 추가
+     2) 새 글은 JAMJAKO_POSTS에 한 덩어리 추가
+        - thumb: 썸네일 파일명 (없으면 '' → 호 번호+제목 카드로 표시)
+        - body:  본문. 문단마다 <p>...</p>
+     아래 글들은 모양 확인용 예시예요. 실제 글로 바꿔주세요.
+  ══════════════════════════════════════════════ */
+  const JAMJAKO_ISSUES = [
+    { no: 1, theme: '호 제목을 적어주세요', date: '2026. 10' },
+  ];
+
+  const JAMJAKO_POSTS = [
+    {
+      issue: 1,
+      author: '작가 이름 A',
+      title: '예시 글 제목 하나',
+      date: '2026. 10. 1',
+      thumb: 'cover.jpg',
+      body: '<p>본문을 여기에 적어주세요.</p>'
+    },
+    {
+      issue: 1,
+      author: '작가 이름 B',
+      title: '썸네일 없이 올리면 이렇게 보여요',
+      date: '2026. 10. 1',
+      thumb: '',
+      body: '<p>본문을 여기에 적어주세요.</p>'
+    },
+    {
+      issue: 1,
+      author: '최고은',
+      title: '예시 글 제목 셋',
+      date: '2026. 10. 1',
+      thumb: 'about.jpg',
+      body: '<p>본문을 여기에 적어주세요.</p>'
+    },
+  ];
+
+  let magView = 'all';
+
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function magCard(p) {
+    const i = JAMJAKO_POSTS.indexOf(p);
+    const thumb = p.thumb
+      ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">`
+      : `<div class="mag-thumb-blank"><span class="blank-no">No.${pad2(p.issue)}</span><span class="blank-title">${esc(p.title)}</span></div>`;
+    return `
+      <article class="mag-card" onclick="openJamjako(${i})">
+        <div class="mag-thumb">${thumb}</div>
+        <p class="mag-meta">No.${pad2(p.issue)}</p>
+        <h3 class="mag-title">${esc(p.title)}</h3>
+        <p class="mag-author">${esc(p.author)}</p>
+      </article>`;
+  }
+
+  function magGrid(list) { return `<div class="mag-grid">${list.map(magCard).join('')}</div>`; }
+
+  function renderMag() {
+    const el = document.getElementById('magList');
+    // 최신 호, 같은 호 안에서는 적은 순서대로
+    const posts = JAMJAKO_POSTS.slice().sort((a, b) => b.issue - a.issue);
+
+    if (!posts.length) {
+      el.innerHTML = '<p class="writing-empty">첫 호를 준비하고 있어요.</p>';
+      return;
+    }
+
+    if (magView === 'all') {
+      el.innerHTML = magGrid(posts);
+    } else if (magView === 'issue') {
+      const issues = JAMJAKO_ISSUES.slice().sort((a, b) => b.no - a.no);
+      el.innerHTML = issues.map(is => {
+        const list = posts.filter(p => p.issue === is.no);
+        if (!list.length) return '';
+        return `
+          <section class="mag-group">
+            <div class="mag-group-head">
+              <span class="mag-group-no">No.${pad2(is.no)}</span>
+              <span class="mag-group-title">${esc(is.theme || '')}</span>
+              <span class="mag-group-sub">${esc(is.date || '')}</span>
+            </div>
+            ${magGrid(list)}
+          </section>`;
+      }).join('');
+    } else {
+      const authors = [...new Set(posts.map(p => p.author))].sort((a, b) => a.localeCompare(b, 'ko'));
+      el.innerHTML = authors.map(name => {
+        const list = posts.filter(p => p.author === name);
+        return `
+          <section class="mag-group">
+            <div class="mag-group-head">
+              <span class="mag-group-title">${esc(name)}</span>
+              <span class="mag-group-sub">${list.length}편</span>
+            </div>
+            ${magGrid(list)}
+          </section>`;
+      }).join('');
+    }
+  }
+
+  function setMagView(v) {
+    magView = v;
+    document.querySelectorAll('.mag-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+    renderMag();
+  }
+
+  function openJamjako(i) {
+    const p = JAMJAKO_POSTS[i];
+    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body, p.thumb);
+  }
+
+  renderMag();
 </script>
 </body>
 </html>
