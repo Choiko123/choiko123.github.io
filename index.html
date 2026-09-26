@@ -6,7 +6,9 @@
   <title>고은</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,600&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- KoPub World 돋움 (한국출판인회의 무료 서체, 웹 사용 허용) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-kopubworld@1.0/dotum.min.css">
   <style>
     :root {
       --cream: #f0f0ee;
@@ -777,6 +779,227 @@
       .mag-group-sub { margin-left: 0; width: 100%; }
       .mag-title { font-size: 0.92rem; }
     }
+    /* ══════════════════════════════════════════════
+       THEME v2 — 옛 문예지 × 강한 색 한 가지
+       (이 블록만 지우면 이전 디자인으로 돌아가요)
+    ══════════════════════════════════════════════ */
+    :root {
+      --cream: #f2ebdd;        /* 누런 종이 */
+      --cream-dark: #e7ddc9;
+      --ink: #1b1813;          /* 먹색 */
+      --ink-light: #34302a;
+      --ink-faint: #7d7465;
+      --accent: #1d4a34;       /* 진한 병초록 */
+      --accent-soft: #b5cfa9;  /* 초록 위에 얹는 연한 색 */
+      --rule: #1b1813;
+      --rule-soft: #cdbfa6;
+      --head: 'KoPubWorld Dotum', 'Apple SD Gothic Neo', sans-serif;
+      --label: 'KoPubWorld Dotum', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    /* 본문·버튼·입력칸까지 전부 KoPub World 돋움으로 */
+    body, button, input,
+    .menu-item-link, .section-title, .writing-title, .about-name,
+    .product-title, .shop-modal-title, .modal-title, .form-input,
+    .form-submit, .form-success-title, .mag-view-btn, .mag-title,
+    .mag-group-title, .mag-thumb-blank .blank-title {
+      font-family: var(--head);
+    }
+    body { font-weight: 300; word-break: keep-all; overflow-wrap: break-word; }
+    .modal-body, .about-body, .shop-modal-desc { line-height: 1.95; }
+
+    /* 종이 결 */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* 집 아이콘 + 메뉴 */
+    .house-icon polyline, .house-icon rect { stroke: var(--accent); stroke-width: 1.8; }
+    .menu-overlay { background: var(--accent); }
+    .menu-item-link {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      color: var(--cream);
+    }
+    .menu-item-link:hover { color: var(--accent-soft); }
+    .menu-sub-link, .menu-tagline { color: rgba(242,235,221,0.75); }
+    .menu-sub-link:hover { color: var(--accent-soft); }
+
+    /* 공통 섹션 머리 — 신문 괘선 */
+    .section-header {
+      border-bottom: 3px double var(--rule);
+      padding-bottom: 0.8rem;
+    }
+    .section-rule { display: none; }
+    .section-title {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-transform: none;
+    }
+
+    .page-back { color: var(--ink-faint); }
+
+    /* 어디까지 말했더라 목록 */
+    .writing-item { border-bottom-color: var(--rule-soft); }
+    .writing-item:first-child { border-top: 1px solid var(--rule); }
+    .writing-tag {
+      display: inline-block;
+      font-family: var(--label);
+      font-weight: 700;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      background: var(--ink);
+      padding: 2px 7px 1px;
+    }
+    .writing-title { font-family: var(--head); font-weight: 700; color: var(--ink); font-size: 1.12rem; }
+    .writing-item:hover .writing-title { color: var(--accent); opacity: 1; }
+    .writing-arrow { color: var(--ink-faint); }
+
+    /* CHOIKO 상품 */
+    .product-card { border: 1px solid var(--rule); background: var(--cream); }
+    .product-card:hover { border-color: var(--accent); box-shadow: 6px 6px 0 var(--accent); }
+    .product-title { font-family: var(--head); font-weight: 700; }
+    .product-tag, .shop-modal-tag, .modal-tag, .form-label {
+      font-family: var(--label); font-weight: 700; color: var(--accent); letter-spacing: 0.1em;
+    }
+
+    /* 소개 */
+    .about-name { font-family: var(--head); font-weight: 900; font-size: 1.6rem; }
+
+    footer { border-top: 3px double var(--rule); }
+
+    /* 모달 */
+    .modal, .shop-modal { border-top: 8px solid var(--accent); }
+    .modal-title, .shop-modal-title { font-family: var(--head); font-weight: 900; letter-spacing: -0.02em; }
+    .modal-date { border-bottom: 3px double var(--rule); }
+    .form-submit { font-family: var(--label); font-weight: 700; background: var(--accent); }
+    .form-submit:hover { background: var(--ink); }
+
+    /* ── 잠자코 ── */
+    .mag-mast {
+      background: var(--accent);
+      color: var(--cream);
+      padding: 1rem 1.4rem 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .mag-mast-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--label);
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(242,235,221,0.6);
+    }
+    .mag-mast-title {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: clamp(4.2rem, 16vw, 9.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-top: 0.9rem;
+    }
+
+    .mag-views {
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 3px double var(--rule);
+      margin-bottom: 2.8rem;
+    }
+    .mag-view-btn {
+      flex: 1;
+      padding: 0.85rem 0.5rem 0.75rem;
+      font-family: var(--label);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--ink);
+      border-bottom: none;
+      border-right: 1px solid var(--rule);
+    }
+    .mag-view-btn:last-child { border-right: none; }
+    .mag-view-btn:hover { color: var(--accent); }
+    .mag-view-btn.active { background: var(--ink); color: var(--cream); }
+
+    .mag-grid { gap: 3rem 0; }
+    .mag-card { padding: 0 1rem; border-left: 1px solid var(--rule-soft); }
+    .mag-grid > .mag-card:nth-child(3n+1) { border-left: none; padding-left: 0; }
+    .mag-grid > .mag-card:nth-child(3n) { padding-right: 0; }
+
+    .mag-thumb { border: 1px solid var(--rule); background: var(--cream-dark); }
+    .mag-thumb img { filter: sepia(0.18) contrast(1.05); }
+    .mag-thumb::after {
+      content: attr(data-no);
+      position: absolute; left: 0; top: 0;
+      font-family: var(--label); font-weight: 900; font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      background: var(--accent); color: var(--cream);
+      padding: 4px 8px 3px;
+    }
+    .mag-thumb-blank { background: var(--ink); padding: 2.2rem 1.1rem 1.1rem; }
+    .mag-card:hover .mag-thumb-blank { background: var(--accent); }
+    .mag-thumb-blank .blank-no { display: none; }
+    .mag-thumb-blank .blank-title {
+      font-family: var(--head); font-weight: 900; font-size: 1.35rem;
+      line-height: 1.3; color: var(--cream); letter-spacing: -0.02em;
+    }
+
+    .mag-meta { display: none; }
+    .mag-title {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+    .mag-author {
+      font-family: var(--label);
+      font-weight: 500;
+      font-size: 0.74rem;
+      color: var(--ink-faint);
+      margin-top: 0.45rem;
+    }
+    .mag-author::before { content: '글 · '; }
+
+    .mag-group-head {
+      border-bottom: 3px double var(--rule);
+      gap: 0.8rem;
+    }
+    .mag-group-no {
+      font-family: var(--head); font-style: normal; font-weight: 900;
+      font-size: clamp(2.6rem, 8vw, 4rem); letter-spacing: -0.04em;
+      color: var(--accent);
+    }
+    .mag-group-title { font-family: var(--head); font-weight: 900; font-size: 1.3rem; }
+    .mag-group-sub { font-family: var(--label); font-style: normal; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.08em; }
+
+    .writing-empty {
+      font-family: var(--head); font-style: normal; font-weight: 500;
+      border-top: none; color: var(--ink-faint);
+    }
+
+    @media (max-width: 768px) {
+      .mag-grid { gap: 2.2rem 0; }
+      .mag-card { padding: 0 0.7rem; }
+      .mag-grid > .mag-card:nth-child(3n+1) { border-left: 1px solid var(--rule-soft); padding-left: 0.7rem; }
+      .mag-grid > .mag-card:nth-child(3n) { padding-right: 0.7rem; }
+      .mag-grid > .mag-card:nth-child(odd) { border-left: none; padding-left: 0; }
+      .mag-grid > .mag-card:nth-child(even) { padding-right: 0; }
+      .mag-title { font-size: 1rem; }
+      .mag-thumb-blank .blank-title { font-size: 1.1rem; }
+      .mag-mast { padding: 0.8rem 1rem 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -919,10 +1142,13 @@
 <div class="page" id="page-jamjako">
   <div class="page-inner wide">
     <button class="page-back" onclick="showHome()">홈으로</button>
-    <div class="section-header">
-      <span class="section-title">잠자코</span>
-      <div class="section-rule"></div>
-    </div>
+    <header class="mag-mast">
+      <div class="mag-mast-top">
+        <span>CHOIKO</span>
+        <span id="magMastCount"></span>
+      </div>
+      <h1 class="mag-mast-title">잠자코</h1>
+    </header>
 
     <div class="mag-views" role="tablist">
       <button class="mag-view-btn active" data-view="all" onclick="setMagView('all')">전체 보기</button>
@@ -1317,7 +1543,7 @@
       : `<div class="mag-thumb-blank"><span class="blank-no">No.${pad2(p.issue)}</span><span class="blank-title">${esc(p.title)}</span></div>`;
     return `
       <article class="mag-card" onclick="openJamjako(${i})">
-        <div class="mag-thumb">${thumb}</div>
+        <div class="mag-thumb" data-no="No.${pad2(p.issue)}">${thumb}</div>
         <p class="mag-meta">No.${pad2(p.issue)}</p>
         <h3 class="mag-title">${esc(p.title)}</h3>
         <p class="mag-author">${esc(p.author)}</p>
@@ -1330,6 +1556,11 @@
     const el = document.getElementById('magList');
     // 최신 호, 같은 호 안에서는 적은 순서대로
     const posts = JAMJAKO_POSTS.slice().sort((a, b) => b.issue - a.issue);
+    const mc = document.getElementById('magMastCount');
+    if (mc) {
+      const nos = JAMJAKO_ISSUES.map(i => i.no);
+      mc.textContent = nos.length ? `No.${pad2(Math.max(...nos))} · ${posts.length}편` : '창간 준비호';
+    }
 
     if (!posts.length) {
       el.innerHTML = '<p class="writing-empty">첫 호를 준비하고 있어요.</p>';
