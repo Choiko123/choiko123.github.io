@@ -1283,37 +1283,24 @@
      2) 새 글은 JAMJAKO_POSTS에 한 덩어리 추가
         - thumb: 썸네일 파일명 (없으면 '' → 호 번호+제목 카드로 표시)
         - body:  본문. 문단마다 <p>...</p>
-     아래 글들은 모양 확인용 예시예요. 실제 글로 바꿔주세요.
+
+     [호 추가 예시]
+       { no: 1, theme: '호 제목', date: '2026. 10' },
+
+     [글 추가 예시]
+       {
+         issue: 1,
+         author: '작가 이름',
+         title: '글 제목',
+         date: '2026. 10. 1',
+         thumb: 'jamjako-01-01.jpg',
+         body: '<p>첫 문단</p><p>둘째 문단</p>'
+       },
   ══════════════════════════════════════════════ */
   const JAMJAKO_ISSUES = [
-    { no: 1, theme: '호 제목을 적어주세요', date: '2026. 10' },
   ];
 
   const JAMJAKO_POSTS = [
-    {
-      issue: 1,
-      author: '작가 이름 A',
-      title: '예시 글 제목 하나',
-      date: '2026. 10. 1',
-      thumb: 'cover.jpg',
-      body: '<p>본문을 여기에 적어주세요.</p>'
-    },
-    {
-      issue: 1,
-      author: '작가 이름 B',
-      title: '썸네일 없이 올리면 이렇게 보여요',
-      date: '2026. 10. 1',
-      thumb: '',
-      body: '<p>본문을 여기에 적어주세요.</p>'
-    },
-    {
-      issue: 1,
-      author: '최고은',
-      title: '예시 글 제목 셋',
-      date: '2026. 10. 1',
-      thumb: 'about.jpg',
-      body: '<p>본문을 여기에 적어주세요.</p>'
-    },
   ];
 
   let magView = 'all';
