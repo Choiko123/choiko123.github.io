@@ -1062,23 +1062,31 @@
     /* 메뉴: 펼쳐지는 애니메이션 대신 팝업 */
     .menu-overlay {
       clip-path: none !important;
-      background: rgba(22,22,22,0.45);
-      align-items: center; justify-content: center;
+      background: transparent;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 4.6rem 1.8rem 0 0;
       opacity: 0; visibility: hidden;
       transition: opacity 0.18s ease, visibility 0s linear 0.18s;
     }
     .menu-overlay.open { opacity: 1; visibility: visible; transition: opacity 0.18s ease; }
     .menu-inner {
-      background: var(--cream);
-      border: 1px solid var(--ink);
-      box-shadow: 8px 8px 0 var(--ink);
-      padding: 2.4rem 2.8rem;
+      background: rgba(243,242,239,0.72);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      border: 1px solid rgba(22,22,22,0.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      padding: 2rem 2.4rem;
       text-align: left;
-      min-width: 260px;
-      transform: scale(0.97);
+      min-width: 240px;
+      transform-origin: top right;
+      transform: scale(0.96) translateY(-6px);
       transition: transform 0.18s ease;
     }
-    .menu-overlay.open .menu-inner { transform: scale(1); }
+    .menu-overlay.open .menu-inner { transform: none; }
+    @media (max-width: 768px) { .menu-overlay { padding: 4rem 1rem 0 0; } }
+    /* 홈버튼: 표지 사진 위에서는 하얀색, 흰 종이 페이지에서는 검정 */
+    .house-icon polyline, .house-icon rect { stroke: #fff; transition: stroke 0.2s; }
+    body.on-page .house-icon polyline, body.on-page .house-icon rect { stroke: var(--ink); }
+    nav { z-index: 600; }
     .menu-items { gap: 1.1rem; margin-bottom: 2rem; }
     .menu-item-link,
     .menu-overlay.open .menu-item-link {
@@ -1089,7 +1097,7 @@
     .menu-sub { opacity: 1; transform: none; transition: none; align-items: flex-start; gap: 0.5rem; }
     .menu-sub-link { color: var(--ink-faint); }
     .menu-sub-link:hover { color: var(--ink); }
-    .menu-tagline { color: rgba(243,242,239,0.85); transition: none; }
+    .menu-tagline { position: static; display: block; margin-top: 1.6rem; color: var(--ink-faint); opacity: 1; transition: none; }
     .menu-mag { display: block; margin: -0.6rem 0 2rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); text-decoration: none; }
     .menu-mag-label { display: block; font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 0.6rem; }
     .menu-mag img { display: block; width: 130px; height: auto; transition: opacity 0.2s; }
@@ -1125,8 +1133,8 @@
       <a class="menu-sub-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
       <a class="menu-sub-link" href="https://instagram.com/_choiko_" target="_blank">@_choiko_</a>
     </div>
+    <span class="menu-tagline">끼리끼리는 도움이 돼</span>
   </div>
-  <span class="menu-tagline">끼리끼리는 도움이 돼</span>
 </div>
 
 <!-- HERO -->
@@ -1479,12 +1487,14 @@
     homeSection.style.display = 'none';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
+    document.body.classList.add('on-page');
     window.scrollTo(0, 0);
   }
 
   function showHome() {
     closeMenu();
     homeSection.style.display = 'block';
+    document.body.classList.remove('on-page');
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     window.scrollTo(0, 0);
   }
