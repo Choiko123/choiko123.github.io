@@ -6,7 +6,7 @@
   <title>고은</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,600&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,600&family=Noto+Serif+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
   <!-- KoPub World 돋움 (한국출판인회의 무료 서체, 웹 사용 허용) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-kopubworld@1.0/dotum.min.css">
   <style>
@@ -1023,6 +1023,35 @@
     .mag-tag { font-family: var(--label); font-weight: 700; font-size: 0.74rem; color: var(--accent); }
     .modal-tags { margin-top: 2.5em; }
     .modal-body .jam-note a { color: inherit; }
+
+    /* ══════════════════════════════════════════════
+       THEME v3 — 흑백 모노톤 × 명조
+       (이 블록만 지우면 v2 초록 디자인으로 돌아가요)
+    ══════════════════════════════════════════════ */
+    :root {
+      --cream: #f3f2ef;        /* 흰 종이 */
+      --cream-dark: #e6e5e1;
+      --ink: #161616;
+      --ink-light: #2e2e2e;
+      --ink-faint: #7a7a77;
+      --accent: #161616;
+      --accent-soft: #b9b9b5;
+      --rule: #161616;
+      --rule-soft: #cfcecb;
+      --head: 'Noto Serif KR', 'AppleMyungjo', 'Batang', serif;
+      --label: 'Noto Serif KR', 'AppleMyungjo', 'Batang', serif;
+    }
+    body::before { filter: grayscale(1); opacity: 0.25; }
+    .menu-sub-link, .menu-tagline { color: rgba(243,242,239,0.7); }
+    .mag-mast-top { border-bottom-color: rgba(243,242,239,0.5); }
+    .mag-mast-title { letter-spacing: -0.06em; }
+    .mag-thumb img, .about-photo img { filter: none; }
+    .mag-card:hover .mag-thumb-blank { background: #3a3a38; }
+    .mag-thumb-text { background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,0) 60%); }
+    .writing-item:hover .writing-title, .mag-card:hover .mag-title,
+    .mag-view-btn:hover { color: var(--ink-faint); }
+    .product-card:hover { border-color: var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+    .modal-body blockquote { border-left-color: var(--ink); }
   </style>
 </head>
 <body>
