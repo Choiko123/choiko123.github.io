@@ -177,9 +177,6 @@
     .modal-body .jam-notes p + p { margin-top: 0.6em; }
     .modal-body .jam-notes a { color: inherit; }
     .modal-tags { margin-top: 2.5em; }
-    /* 본문 양쪽 정렬: 줄 끝을 반듯하게 */
-    .modal-body p, .modal-body blockquote { text-align: justify; word-break: normal; line-break: strict; }
-    .modal-body .jam-notes p { text-align: left; }
 
     @media (max-width: 768px) {
       .wrap { padding: 0 1.5rem 4rem; }
@@ -193,6 +190,12 @@
       .mag-thumb-text { font-size: 0.95rem; padding: 0.8rem; }
       .mag-group-sub { margin-left: 0; width: 100%; }
       .modal { padding: 2.5rem 1.5rem; }
+    }
+    /* 본문: 단어는 자르지 않고 왼쪽 정렬, 휴대폰에선 글 폭을 넓혀 줄 끝 들쭉날쭉함을 줄임 */
+    @media (max-width: 768px) {
+      .modal { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .modal-overlay { padding-left: 0.6rem; padding-right: 0.6rem; }
+      .modal-body { font-size: 0.97rem; }
     }
   </style>
 </head>

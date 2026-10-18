@@ -1109,9 +1109,12 @@
     .menu-sub { gap: 0.4rem; }
     .menu-sub-link { font-size: 0.92rem; color: var(--ink-light); letter-spacing: 0.04em; }
     .menu-tagline { font-size: 0.85rem; color: var(--ink-light); letter-spacing: 0.06em; }
-    /* 본문 양쪽 정렬: 줄 끝을 반듯하게 */
-    .modal-body p, .modal-body blockquote { text-align: justify; word-break: normal; line-break: strict; }
-    .modal-body .jam-notes p { text-align: left; }
+    /* 본문: 단어는 자르지 않고 왼쪽 정렬, 휴대폰에선 글 폭을 넓혀 줄 끝 들쭉날쭉함을 줄임 */
+    @media (max-width: 768px) {
+      .modal { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .modal-overlay { padding-left: 0.6rem; padding-right: 0.6rem; }
+      .modal-body { font-size: 0.97rem; }
+    }
   </style>
 </head>
 <body>
