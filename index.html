@@ -1004,6 +1004,11 @@
     .modal-body blockquote { margin: 1.5em 0; padding-left: 1.2rem; border-left: 3px solid var(--accent); color: var(--ink-faint); }
     .modal-body .jam-notes { margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--rule-soft); font-size: 0.8rem; line-height: 1.8; color: var(--ink-faint); overflow-wrap: anywhere; }
     .modal-body .jam-notes p + p { margin-top: 0.6em; }
+    .modal-body .jam-notes a { color: inherit; }
+    /* 잠자코 태그 */
+    .mag-tags { display: flex; flex-wrap: wrap; gap: 0.2rem 0.6rem; margin-top: 0.45rem; }
+    .mag-tag { font-family: var(--label); font-weight: 700; font-size: 0.74rem; color: var(--accent); }
+    .modal-tags { margin-top: 2.5em; }
     .modal-body .jam-note a { color: inherit; }
   </style>
 </head>
@@ -1514,6 +1519,7 @@
      2) 새 글은 JAMJAKO_POSTS에 한 덩어리 추가
         - thumb: 썸네일 파일명 (없으면 '' → 호 번호+제목 카드로 표시)
         - body:  본문. 문단마다 <p>...</p>
+        - tags:  태그 목록 (없으면 빼도 됨). 예: ['영화리뷰', '에세이']
 
      [호 추가 예시]
        { no: 1, theme: '호 제목', date: '2026. 10' },
@@ -1539,6 +1545,7 @@
       title: '영화전공생이 김종민(가능한!)사랑 보고 온 후기',
       date: '2026. 10. 18',
       thumb: '',
+      tags: ['영화리뷰'],
       body: `
         <p>크레딧이 올라가고 난 후 울게 된 영화는 정말 몇 없었는데<br>가능한 사랑은 그렇게 될 수밖에 없었습니다.<br>계급 간의 시선, 예술로써 다루는 개인, 당사자성과 창작윤리...<br>다양한 논제들이 있지만 저는 그냥 기뻤어요.</p>
         <p>이런 구시대적인, 원형적인 사랑이 아직도 있고,<br>그것이 이길 수 있다는 것을 이야기하는 영화라고 생각했거든요.<br>어쩌면 그것만이 가능하다고..</p>
@@ -1561,6 +1568,22 @@
         <div class="jam-notes"><p class="jam-note">* 영화 속 실제 모델 해고자 부부 "엉엉 울면서 봤다"... '가능한 사랑'은 이창동이 16년 만에 지킨 약속, 남보라 기자, 한국일보, 26.10.05, (<a href="https://naver.me/5AuGimGT" target="_blank">https://naver.me/5AuGimGT</a>)</p><p class="jam-note">** [인터뷰] 어떤 날은 밤새 달만 바라봤다, &lt;가능한 사랑&gt; 이창동 감독, 백은하, 씨네21, 26.09.22 (<a href="https://cine21.com/news/view/?mag_id=110786" target="_blank">https://cine21.com/news/view/?mag_id=110786</a>)</p></div>
       `
     },
+    {
+      issue: 0,
+      author: '최고은',
+      title: '예술가로 살아남기',
+      date: '2026. 10. 18',
+      thumb: '',
+      tags: ['에세이'],
+      body: `
+        <p>스스로를 예술가라고 부를 수 있는가? 거기서부터 이 이야기는 시작한다. 예술을 하는 사람을 예술가라고 한다면, 나는 계속해서 창작활동을 하고 있긴 하다. 학부에서 영화를 전공하며 단편영화 4편을 연출했고, 에세이 책을 3권 냈다. 인스타그램에도 꾸준히 글을 올리고 있다.그런데도 나를 예술가라고 부를 수 있는지는 여전히 잘 모르겠다. 그 이유는 간단하다. 내가 만든 것들이 ‘예술’인지 모르겠다. 예술이라고 부를 수 있을까? 그럴 만한 의미가 있을까?</p>
+        <p>매일 읽고, 쓰고, 보고, 걸어다니며 쓸 것들을 찾는다. 해야만 하는 말을 찾는다. 그것은 재능이다. 그것을 매일 열심히 하는 것은 결단코 쉬운 일이 아니다.</p>
+        <p>나는 예술가라고 하기엔 너무 게으르다. 주5일 9to6 직장을 다니며 아침 혹은 밤마다 소설을 집필하는 작가들이 수두룩하다. 자의로 매일 작업실에 출근해 글을 몇 시간이고 쓰는 작가들도 수두룩하다.<br>나는 어제도 오늘도 오후 3시까지 잤고 무기력하게 누워 있다가 밤에 겨우 기어나와 새벽 4시까지 술을 마셨다.<br>내가 예술가가 되어야 하는 것은 알겠는데, 그래서 당장 어떻게 살아야 할지를 모르겠다. 어쩌면 나는 사는 데에도 재능이 없는 것일지 모르겠다. 예술가가 되고 싶은 간절한 마음. 그것은 재능에 가깝게 느껴진다. 내가 아무리 노력한다고 해도 생기지가 않는다.</p>
+        <p>이거 아니면 죽을 것 같아서 예술을 하는 사람이 몇이나 될까? 내가 예술을 하지 않는다고 해서 죽을지는 모르겠다. 하지만 살아있음을 느끼는 일이 아주 드물어질 것이라는 것은 안다. 나는 살아있고 싶어서 글을 쓴다. 이 정도면 애매한 재능이라고는 할 수 있을까?</p>
+        <p>양귀자 &lt;모순&gt;의 첫 문장처럼 ‘내 인생에 나의 온 생애를 다 걸어야 해.’라고 소리치며 일어나진 못하곘다. 하지만 ‘이렇게 살아서는 안 돼!’라고는 매일 외치고 있다. 정말 이렇게 살면 안 될 것 같아서 저번주 평일에는 지인과 아침 10시에 줌을 켜놓고 한 시간씩 글을 썼다. 10시에 시작인데 10시에 눈을 떠서 비몽사몽하게 펜을 잡은 게 대부분이지만 그래도 한 시간 동안 썼다. 쓰고 나면 기분이 정말 좋았다. 나를 파헤치고 다시 꼬매는 일. 그 작업이 나는 순수하게 정말 즐겁다.</p>
+        <p>그래, 네가 좋으면 됐다.<br>(못 말리는 연하를 바라보는 오빠 톤으로)<br>내일도 아침에 줌 글쓰기를 하기로 했다. 내일의 고급진 즐거움을 위해 술 마시고 싶은 마음을 꽉 잡고 있다. 쉬운 쾌락 또한 즐겁지만 결국 내가 해야 할 일은 이것이기 때문에. 조금 어렵더라도 계속 시도해보려 한다. 재능을 가지는 일. 무엇을 해야 하고 무엇을 하지 않아야 하는지 잘 파악하는 일. 부지런한 예술가가 한 번쯤은 되어보는 일.</p>
+      `
+    },
   ];
 
   let magView = 'all';
@@ -1581,7 +1604,13 @@
         <p class="mag-meta">No.${pad2(p.issue)}</p>
         <h3 class="mag-title">${esc(p.title)}</h3>
         <p class="mag-author">${esc(p.author)}</p>
+        ${magTags(p)}
       </article>`;
+  }
+
+  function magTags(p) {
+    if (!p.tags || !p.tags.length) return '';
+    return `<div class="mag-tags">${p.tags.map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</div>`;
   }
 
   function magGrid(list) { return `<div class="mag-grid">${list.map(magCard).join('')}</div>`; }
@@ -1642,7 +1671,7 @@
 
   function openJamjako(i) {
     const p = JAMJAKO_POSTS[i];
-    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body, p.thumb);
+    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.thumb);
   }
 
   renderMag();
