@@ -1052,6 +1052,44 @@
     .mag-view-btn:hover { color: var(--ink-faint); }
     .product-card:hover { border-color: var(--ink); box-shadow: 6px 6px 0 var(--ink); }
     .modal-body blockquote { border-left-color: var(--ink); }
+
+    /* 잠자코 손글씨 제호 */
+    .mag-mast { background: none; color: var(--ink); padding: 0 0 1.4rem; }
+    .mag-mast-top { border-bottom: 1px solid var(--rule); }
+    .mag-mast-title { margin-top: 1.6rem; line-height: 0; }
+    .mag-logo { display: block; width: min(100%, 560px); height: auto; }
+
+    /* 메뉴: 펼쳐지는 애니메이션 대신 팝업 */
+    .menu-overlay {
+      clip-path: none !important;
+      background: rgba(22,22,22,0.45);
+      align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; transition: opacity 0.18s ease; }
+    .menu-inner {
+      background: var(--cream);
+      border: 1px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 2.4rem 2.8rem;
+      text-align: left;
+      min-width: 260px;
+      transform: scale(0.97);
+      transition: transform 0.18s ease;
+    }
+    .menu-overlay.open .menu-inner { transform: scale(1); }
+    .menu-items { gap: 1.1rem; margin-bottom: 2rem; }
+    .menu-item-link,
+    .menu-overlay.open .menu-item-link {
+      transform: none; transition: color 0.2s; transition-delay: 0s !important;
+      color: var(--ink); font-size: clamp(1.3rem, 3vw, 1.7rem); text-align: left;
+    }
+    .menu-item-link:hover { color: var(--ink-faint); }
+    .menu-sub { opacity: 1; transform: none; transition: none; align-items: flex-start; gap: 0.5rem; }
+    .menu-sub-link { color: var(--ink-faint); }
+    .menu-sub-link:hover { color: var(--ink); }
+    .menu-tagline { color: rgba(243,242,239,0.85); transition: none; }
   </style>
 </head>
 <body>
@@ -1199,7 +1237,7 @@
         <span>CHOIKO</span>
         <span id="magMastCount"></span>
       </div>
-      <h1 class="mag-mast-title">잠자코</h1>
+      <h1 class="mag-mast-title"><img class="mag-logo" src="jamjako-logo.png" alt="잠자코"></h1>
     </header>
 
     <div class="mag-views" role="tablist">
@@ -1446,6 +1484,8 @@
     menuBtn.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
   }
+
+  menuOverlay.addEventListener('click', e => { if (e.target === menuOverlay) closeMenu(); });
 
   function closeMenu() {
     menuOverlay.classList.remove('open');
