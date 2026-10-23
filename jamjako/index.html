@@ -6,150 +6,139 @@
   <title>잠자코</title>
   <meta property="og:title" content="잠자코">
   <meta property="og:image" content="logo.png">
+  <meta name="theme-color" content="#e2ff1f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,600&family=Noto+Serif+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- 넥슨 카트 고딕 (제목용, 넥슨 무료 서체) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/KartriderKor/subsets/KartriderKor-dynamic-subset.css">
   <style>
     :root {
-      --paper: #f3f2ef;
-      --paper-dark: #e6e5e1;
-      --ink: #161616;
-      --ink-light: #2e2e2e;
-      --ink-faint: #7a7a77;
-      --rule-soft: #cfcecb;
+      --neon: #e2ff1f;          /* 포인트: 형광노랑 */
+      --base: #e9ebee;          /* 바탕: 차가운 회색 */
+      --cell: #d5d9de;          /* 칸 회색 */
+      --cell-hover: #c9ced4;
+      --ink: #111214;
+      --ink-light: #2b2d31;
+      --ink-faint: #6b7078;
+      --line: #b9bec5;
       --serif: 'Noto Serif KR', 'AppleMyungjo', 'Batang', serif;
-      --latin: 'EB Garamond', Georgia, serif;
+      --kart: 'Kartrider Kor', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--paper);
+      background: var(--base);
       color: var(--ink);
       font-family: var(--serif);
-      font-weight: 300;
+      font-weight: 400;
       font-size: 16px;
       line-height: 1.7;
       word-break: keep-all;
       overflow-wrap: break-word;
       overflow-x: hidden;
-      opacity: 0; animation: fadeIn 0.6s ease 0.1s forwards;
+      opacity: 0; animation: fadeIn 0.5s ease 0.05s forwards;
     }
     @keyframes fadeIn { to { opacity: 1; } }
     button { font-family: inherit; }
 
-    /* 종이 결 */
-    body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 500;
-      opacity: 0.25; mix-blend-mode: multiply; filter: grayscale(1);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem 5rem; }
 
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 3rem 6rem; }
-
-    /* 맨 위 띠 */
-    .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.6rem 0 1.2rem;
-    }
-    .topbar a {
-      font-family: var(--latin); font-style: italic; font-size: 0.85rem;
-      color: var(--ink-faint); text-decoration: none; transition: color 0.2s;
-    }
-    .topbar a:hover { color: var(--ink); }
-
-    /* 제호 */
-    .mast { padding: 3rem 0 2.2rem; }
+    /* 제호: 형광 띠 */
+    .mast { background: var(--neon); margin: 1.5rem 0 0; padding: 0.9rem 1.1rem 1.4rem; }
     .mast-top {
-      display: flex; justify-content: space-between;
-      font-weight: 700; font-size: 0.72rem; letter-spacing: 0.14em;
-      padding-bottom: 0.7rem; border-bottom: 1px solid var(--ink);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--kart); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.02em;
     }
-    .mast h1 { margin-top: 1.8rem; line-height: 0; }
-    .mast h1 img { display: block; width: min(100%, 620px); height: auto; }
+    .mast-top a { color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.55rem; }
+    .mast-top a::before { content: ''; width: 0.8rem; height: 0.8rem; background: var(--ink); }
+    .mast h1 { margin-top: 1.4rem; line-height: 0; }
+    .mast h1 img { display: block; width: min(100%, 360px); height: auto; }
 
     /* 검색창 + 보기 버튼 */
     .views {
+      position: sticky; top: 0; z-index: 50;
       display: flex; align-items: center; gap: 1rem;
-      border-top: 1px solid var(--ink);
-      border-bottom: 3px double var(--ink);
-      padding: 0.7rem 0;
-      margin-bottom: 2.8rem;
+      background: #f6f7f9; border: 1px solid var(--ink); border-top: none;
+      padding: 0.45rem 0.6rem 0.45rem 0.9rem;
+      margin-bottom: 6px;
     }
     .mag-search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.5rem; }
     .mag-search svg { flex: none; width: 15px; height: 15px; stroke: var(--ink); }
     .mag-search input {
       flex: 1; min-width: 0; background: none; border: none; outline: none;
-      font-family: inherit; font-weight: 500; font-size: 0.85rem; color: var(--ink);
-      padding: 0.35rem 0; border-bottom: 1px solid transparent; transition: border-color 0.2s;
+      font-family: var(--kart); font-weight: 500; font-size: 0.85rem; color: var(--ink);
+      padding: 0.35rem 0;
     }
-    .mag-search input:focus { border-bottom-color: var(--ink); }
     .mag-search input::placeholder { color: var(--ink-faint); }
     .mag-search input::-webkit-search-cancel-button { filter: grayscale(1); cursor: pointer; }
-    .view-btns { display: flex; gap: 0.35rem; flex: none; }
+    .view-btns { display: flex; gap: 0.3rem; flex: none; }
     .view-btn {
       background: none; border: 1px solid var(--ink); border-radius: 999px;
-      padding: 0.28rem 0.75rem 0.24rem;
-      font-weight: 700; font-size: 0.72rem; line-height: 1.4; color: var(--ink); cursor: pointer;
-      white-space: nowrap; transition: background 0.2s, color 0.2s;
+      padding: 0.26rem 0.72rem 0.2rem;
+      font-family: var(--kart); font-weight: 700; font-size: 0.72rem; line-height: 1.4; color: var(--ink); cursor: pointer;
+      white-space: nowrap; transition: background 0.15s, color 0.15s;
     }
-    @media (hover: hover) { .view-btn:not(.active):hover { background: var(--paper-dark); } }
-    .view-btn.active { background: var(--ink); color: var(--paper); }
+    @media (hover: hover) { .view-btn:not(.active):hover { background: var(--neon); } }
+    .view-btn.active { background: var(--ink); color: var(--neon); }
 
     /* 묶음 머리 */
-    .mag-group { margin-bottom: 4.5rem; }
-    .mag-group:last-child { margin-bottom: 0; }
+    .mag-group { margin-bottom: 6px; }
     .mag-group-head {
-      display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.8rem;
-      padding-bottom: 0.9rem; margin-bottom: 2rem; border-bottom: 3px double var(--ink);
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.3rem 0.8rem;
+      background: var(--ink); color: var(--base);
+      padding: 0.8rem 1rem 0.7rem; margin-bottom: 6px;
+      font-family: var(--kart);
     }
-    .mag-group-no { font-weight: 900; font-size: clamp(2.6rem, 8vw, 4rem); line-height: 1; letter-spacing: -0.04em; }
-    .mag-group-title { font-weight: 900; font-size: 1.3rem; }
-    .mag-group-sub { font-weight: 700; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--ink-faint); margin-left: auto; }
+    .mag-group-no { font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--neon); }
+    .mag-group-title { font-weight: 700; font-size: 1.05rem; }
+    .mag-group-sub { font-weight: 500; font-size: 0.72rem; color: #9aa0a8; margin-left: auto; }
 
-    /* 카드 */
-    .mag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem 0; }
-    .mag-card { cursor: pointer; min-width: 0; padding: 0 1rem; border-left: 1px solid var(--rule-soft); }
-    .mag-grid > .mag-card:nth-child(3n+1) { border-left: none; padding-left: 0; }
-    .mag-grid > .mag-card:nth-child(3n) { padding-right: 0; }
+    /* 격자 */
+    .mag-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .mag-card {
+      cursor: pointer; min-width: 0; position: relative;
+      aspect-ratio: 4 / 5; background: var(--cell);
+      display: flex; flex-direction: column; padding: 0.7rem;
+      transition: background 0.2s;
+    }
+    @media (hover: hover) { .mag-card:hover { background: var(--cell-hover); } }
+    .mag-cover {
+      flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0.6rem 0 0.5rem;
+    }
+    .mag-cover img {
+      height: 100%; max-width: 78%; aspect-ratio: 3 / 4; object-fit: cover; display: block;
+      box-shadow: 0 6px 14px rgba(20,24,30,0.22), 0 1px 2px rgba(20,24,30,0.2);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (hover: hover) { .mag-card:hover .mag-cover img { transform: translateY(-3px); } }
+    .mag-cap { font-family: var(--kart); }
+    .mag-title { font-weight: 700; font-size: 0.86rem; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .mag-sub { font-weight: 500; font-size: 0.64rem; color: var(--ink-faint); margin-top: 0.2rem; display: flex; flex-wrap: wrap; gap: 0 0.45rem; }
+    .mag-tag { color: var(--ink); font-weight: 700; }
 
-    .mag-thumb {
-      aspect-ratio: 4 / 5; overflow: hidden; position: relative;
-      background: var(--paper-dark); border: 1px solid var(--ink); margin-bottom: 1rem;
+    /* 사진 없는 글: 형광 칸 */
+    .mag-card.feature { background: var(--neon); padding: 0.9rem; }
+    @media (hover: hover) { .mag-card.feature:hover { background: #d4f000; } }
+    .feature-title {
+      font-family: var(--kart); font-weight: 800; font-size: 1.45rem; line-height: 1.15; letter-spacing: -0.01em;
     }
-    .mag-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-    .mag-card:hover .mag-thumb img { transform: scale(1.035); }
-    .mag-thumb::after {
-      content: attr(data-no); position: absolute; left: 0; top: 0;
-      font-weight: 900; font-size: 0.66rem; letter-spacing: 0.06em;
-      background: var(--ink); color: var(--paper); padding: 4px 8px 3px;
+    .feature-text {
+      font-size: 0.74rem; line-height: 1.5; margin-top: 0.6rem; color: var(--ink-light);
+      overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
     }
-    .mag-thumb-blank {
-      width: 100%; height: 100%; display: flex; flex-direction: column;
-      padding: 2.2rem 1.1rem 1.1rem; background: var(--ink); transition: background 0.3s;
+    .feature-foot {
+      margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end;
+      font-family: var(--kart); font-weight: 700;
     }
-    .mag-card:hover .mag-thumb-blank { background: #3a3a38; }
-    .blank-no { display: none; }
-    .blank-title, .mag-thumb-text {
-      font-weight: 900; font-size: 1.35rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--paper);
-    }
-    .mag-thumb-text {
-      position: absolute; inset: 0; display: flex; align-items: flex-end;
-      padding: 2.2rem 1.1rem 1.1rem; pointer-events: none;
-      background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,0) 60%);
-      text-shadow: 0 1px 8px rgba(0,0,0,0.35);
-    }
-    .mag-meta { display: none; }
-    .mag-title { font-weight: 700; font-size: 1.15rem; line-height: 1.4; letter-spacing: -0.01em; transition: color 0.2s; }
-    .mag-card:hover .mag-title { color: var(--ink-faint); }
-    .mag-author { font-weight: 500; font-size: 0.74rem; color: var(--ink-faint); margin-top: 0.45rem; }
-    .mag-author::before { content: '글 · '; }
-    .mag-tags { display: flex; flex-wrap: wrap; gap: 0.2rem 0.6rem; margin-top: 0.45rem; }
-    .mag-tag { font-weight: 700; font-size: 0.74rem; }
-    .writing-empty { padding: 4rem 0; font-weight: 500; color: var(--ink-faint); }
+    .feature-no { font-weight: 800; font-size: 1.15rem; line-height: 1; }
+    .feature-go { font-size: 0.78rem; }
+
+    .writing-empty { padding: 4rem 1rem; font-family: var(--kart); font-weight: 500; color: var(--ink-faint); background: var(--cell); }
 
     footer {
-      margin-top: 5rem; padding: 2rem 0; border-top: 3px double var(--ink);
+      margin-top: 3rem; padding: 1rem 0; border-top: 1px solid var(--ink);
       display: flex; justify-content: space-between;
-      font-family: var(--latin); font-style: italic; font-size: 0.75rem; color: var(--ink-faint);
+      font-family: var(--kart); font-weight: 500; font-size: 0.72rem; color: var(--ink-faint);
     }
     footer a { color: inherit; }
 
@@ -158,72 +147,74 @@
       position: fixed; inset: 0; z-index: 400; display: none;
       align-items: flex-start; justify-content: center;
       padding: 5vh 1rem; overflow-y: auto;
-      background: rgba(22,22,22,0.55); backdrop-filter: blur(3px);
+      background: rgba(17,18,20,0.6); backdrop-filter: blur(3px);
     }
     .modal-overlay.open { display: flex; }
     .modal {
-      background: var(--paper); max-width: 660px; width: 100%; padding: 4rem; position: relative;
-      border-top: 8px solid var(--ink); animation: modalIn 0.35s ease;
+      background: #f6f7f9; max-width: 660px; width: 100%; padding: 0 0 4rem; position: relative;
+      animation: modalIn 0.35s ease;
     }
     @keyframes modalIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     .modal-close {
-      position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none;
-      font-family: var(--latin); font-size: 1.1rem; color: var(--ink-faint); cursor: pointer;
+      position: absolute; top: 0.9rem; right: 0.9rem; z-index: 2;
+      width: 2.1rem; height: 2.1rem; border-radius: 50%; border: none;
+      background: var(--ink); color: var(--neon); font-size: 0.95rem; line-height: 1; cursor: pointer;
     }
-    .modal-close:hover { color: var(--ink); }
-    .modal-cover { width: 100%; display: block; margin-bottom: 2.2rem; }
-    .modal-tag { font-weight: 700; font-size: 0.62rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
-    .modal-title { font-weight: 900; font-size: 1.65rem; line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
-    .modal-date {
-      font-family: var(--latin); font-style: italic; font-size: 0.78rem; color: var(--ink-faint);
-      margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 3px double var(--ink);
-    }
-    .modal-body { font-size: 1rem; line-height: 1.95; color: var(--ink-light); }
+    .modal-cover { width: 100%; display: block; }
+    .modal-head { background: var(--neon); padding: 1.6rem 4rem 1.5rem; }
+    .modal-tag { font-family: var(--kart); font-weight: 700; font-size: 0.74rem; margin-bottom: 0.7rem; }
+    .modal-title { font-family: var(--kart); font-weight: 800; font-size: 1.8rem; line-height: 1.25; letter-spacing: -0.01em; }
+    .modal-date { font-family: var(--kart); font-weight: 500; font-size: 0.78rem; margin-top: 0.9rem; }
+    .modal-body { padding: 2.6rem 4rem 0; font-size: 1rem; line-height: 1.95; color: var(--ink-light); }
     .modal-body p + p { margin-top: 1.5em; }
-    .modal-body blockquote { margin: 1.5em 0; padding-left: 1.2rem; border-left: 3px solid var(--ink); color: var(--ink-faint); }
+    .modal-body blockquote { margin: 1.5em 0; padding-left: 1.2rem; border-left: 3px solid var(--neon); color: var(--ink-faint); }
     .modal-body .jam-notes {
-      margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--rule-soft);
+      margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--line);
       font-size: 0.8rem; line-height: 1.8; color: var(--ink-faint); overflow-wrap: anywhere;
     }
     .modal-body .jam-notes p + p { margin-top: 0.6em; }
     .modal-body .jam-notes a { color: inherit; }
-    .modal-tags { margin-top: 2.5em; }
+    .modal-tags { margin-top: 2.5em; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .modal-tags .mag-tag {
+      font-family: var(--kart); font-size: 0.74rem; background: var(--ink); color: var(--neon);
+      border-radius: 999px; padding: 0.2rem 0.7rem 0.12rem;
+    }
 
-    @media (max-width: 768px) {
-      .wrap { padding: 0 1.5rem 4rem; }
-      .mast { padding-top: 2rem; }
-      .mag-grid { grid-template-columns: 1fr 1fr; gap: 2.2rem 0; }
-      .mag-card, .mag-grid > .mag-card:nth-child(3n+1), .mag-grid > .mag-card:nth-child(3n) { padding: 0 0.7rem; border-left: 1px solid var(--rule-soft); }
-      .mag-grid > .mag-card:nth-child(odd) { border-left: none; padding-left: 0; }
-      .mag-grid > .mag-card:nth-child(even) { padding-right: 0; }
-      .mag-title { font-size: 1rem; }
-      .blank-title { font-size: 1.1rem; }
-      .mag-thumb-text { font-size: 0.95rem; padding: 0.8rem; }
-      .mag-group-sub { margin-left: 0; width: 100%; }
-      .views { gap: 0.6rem; }
+    @media (max-width: 900px) {
+      .mag-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 0.75rem 4rem; }
+      .mast { margin-top: 0.75rem; padding: 0.8rem 0.9rem 1.1rem; }
+      .mast h1 { margin-top: 1.1rem; }
+      .mast h1 img { width: 72%; }
+      .views { gap: 0.6rem; padding-left: 0.7rem; }
       .mag-search input { font-size: 16px; } /* 아이폰에서 누를 때 화면 확대 방지 */
       .view-btns { gap: 0.25rem; }
-      .view-btn { padding: 0.26rem 0.6rem 0.22rem; font-size: 0.68rem; }
-      .modal { padding: 2.5rem 1.5rem; }
-    }
-    /* 본문: 단어는 자르지 않고 왼쪽 정렬, 휴대폰에선 글 폭을 넓혀 줄 끝 들쭉날쭉함을 줄임 */
-    @media (max-width: 768px) {
-      .modal { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .view-btn { padding: 0.26rem 0.6rem 0.2rem; font-size: 0.68rem; }
+      .mag-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+      .views, .mag-group, .mag-group-head { margin-bottom: 5px; }
+      .mag-card { padding: 0.6rem; }
+      .mag-card.feature { padding: 0.75rem; }
+      .feature-title { font-size: 1.12rem; }
+      .feature-text { font-size: 0.68rem; -webkit-line-clamp: 3; }
+      .mag-title { font-size: 0.78rem; }
+      .mag-group-no { font-size: 1.6rem; }
+      .mag-group-sub { margin-left: 0; width: 100%; }
       .modal-overlay { padding-left: 0.6rem; padding-right: 0.6rem; }
-      .modal-body { font-size: 0.97rem; }
+      .modal-head { padding: 1.3rem 1.2rem 1.2rem; }
+      .modal-title { font-size: 1.45rem; }
+      .modal-body { padding: 2rem 1.2rem 0; font-size: 0.97rem; }
+      .modal { padding-bottom: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="topbar">
-    <a href="../">← CHOIKO</a>
-  </div>
-
   <header class="mast">
     <div class="mast-top">
-      <span>CHOIKO MAGAZINE</span>
+      <a href="../">CHOIKO</a>
       <span id="magMastCount"></span>
     </div>
     <h1><img src="logo.png" alt="잠자코"></h1>
@@ -231,7 +222,7 @@
 
   <div class="views">
     <label class="mag-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
       <input type="search" id="magSearch" placeholder="검색" aria-label="잠자코 글 검색" oninput="renderMag()">
     </label>
     <div class="view-btns" role="tablist">
@@ -244,7 +235,7 @@
   <div id="magList"></div>
 
   <footer>
-    <span>잠자코 · CHOIKO</span>
+    <span>잠자코 · CHOIKO MAGAZINE</span>
     <span>© 2026</span>
   </footer>
 </div>
@@ -253,9 +244,11 @@
   <div class="modal">
     <button class="modal-close" onclick="closeModal()" aria-label="닫기">✕</button>
     <img class="modal-cover" id="modalCover" alt="">
-    <p class="modal-tag" id="modalTag"></p>
-    <h2 class="modal-title" id="modalTitle"></h2>
-    <p class="modal-date" id="modalDate"></p>
+    <div class="modal-head">
+      <p class="modal-tag" id="modalTag"></p>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-date" id="modalDate"></p>
+    </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
@@ -289,19 +282,33 @@
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
+  function plain(html) {
+    const d = document.createElement('div');
+    d.innerHTML = html || '';
+    return d.textContent.replace(/\s+/g, ' ').trim();
+  }
 
   function magCard(p) {
     const i = JAMJAKO_POSTS.indexOf(p);
-    const thumb = p.thumb
-      ? `<img src="${esc(p.thumb)}" alt="" loading="lazy"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ''}><span class="mag-thumb-text">${esc(p.title)}</span>`
-      : `<div class="mag-thumb-blank"><span class="blank-no">No.${pad2(p.issue)}</span><span class="blank-title">${esc(p.title)}</span></div>`;
+    // 사진 있는 글은 회색 칸에 표지처럼, 사진 없는 글은 형광 칸에 제목 크게
+    if (!p.thumb) {
+      return `
+        <article class="mag-card feature" onclick="openJamjako(${i})">
+          <h3 class="feature-title">${esc(p.title)}</h3>
+          <p class="feature-text">${esc(plain(p.body).slice(0, 120))}</p>
+          <div class="feature-foot">
+            <span class="feature-no">No.${pad2(p.issue)}</span>
+            <span class="feature-go">읽기 →</span>
+          </div>
+        </article>`;
+    }
     return `
       <article class="mag-card" onclick="openJamjako(${i})">
-        <div class="mag-thumb" data-no="No.${pad2(p.issue)}">${thumb}</div>
-        <p class="mag-meta">No.${pad2(p.issue)}</p>
-        <h3 class="mag-title">${esc(p.title)}</h3>
-        <p class="mag-author">${esc(p.author)}</p>
-        ${magTags(p)}
+        <div class="mag-cover"><img src="${esc(p.thumb)}" alt="" loading="lazy"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ''}></div>
+        <div class="mag-cap">
+          <h3 class="mag-title">${esc(p.title)}</h3>
+          <p class="mag-sub"><span>No.${pad2(p.issue)} · ${esc(p.author)}</span>${(p.tags || []).map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</p>
+        </div>
       </article>`;
   }
 
@@ -316,9 +323,7 @@
   function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ''); }
   function postText(p) {
     if (!p._text) {
-      const d = document.createElement('div');
-      d.innerHTML = p.body || '';
-      p._text = norm([p.title, p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), d.textContent].join(' '));
+      p._text = norm([p.title, p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
     }
     return p._text;
   }
