@@ -66,21 +66,32 @@
     .mast h1 { margin-top: 1.8rem; line-height: 0; }
     .mast h1 img { display: block; width: min(100%, 620px); height: auto; }
 
-    /* 보기 탭 */
+    /* 검색창 + 보기 버튼 */
     .views {
-      display: flex;
+      display: flex; align-items: center; gap: 1rem;
       border-top: 1px solid var(--ink);
       border-bottom: 3px double var(--ink);
+      padding: 0.7rem 0;
       margin-bottom: 2.8rem;
     }
-    .view-btn {
-      flex: 1; background: none; border: none; border-right: 1px solid var(--ink);
-      padding: 0.85rem 0.5rem 0.75rem;
-      font-weight: 700; font-size: 0.8rem; color: var(--ink); cursor: pointer;
-      transition: color 0.2s;
+    .mag-search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.5rem; }
+    .mag-search svg { flex: none; width: 15px; height: 15px; stroke: var(--ink); }
+    .mag-search input {
+      flex: 1; min-width: 0; background: none; border: none; outline: none;
+      font-family: inherit; font-weight: 500; font-size: 0.85rem; color: var(--ink);
+      padding: 0.35rem 0; border-bottom: 1px solid transparent; transition: border-color 0.2s;
     }
-    .view-btn:last-child { border-right: none; }
-    .view-btn:hover { color: var(--ink-faint); }
+    .mag-search input:focus { border-bottom-color: var(--ink); }
+    .mag-search input::placeholder { color: var(--ink-faint); }
+    .mag-search input::-webkit-search-cancel-button { filter: grayscale(1); cursor: pointer; }
+    .view-btns { display: flex; gap: 0.35rem; flex: none; }
+    .view-btn {
+      background: none; border: 1px solid var(--ink); border-radius: 999px;
+      padding: 0.28rem 0.75rem 0.24rem;
+      font-weight: 700; font-size: 0.72rem; line-height: 1.4; color: var(--ink); cursor: pointer;
+      white-space: nowrap; transition: background 0.2s, color 0.2s;
+    }
+    @media (hover: hover) { .view-btn:not(.active):hover { background: var(--paper-dark); } }
     .view-btn.active { background: var(--ink); color: var(--paper); }
 
     /* 묶음 머리 */
@@ -189,6 +200,10 @@
       .blank-title { font-size: 1.1rem; }
       .mag-thumb-text { font-size: 0.95rem; padding: 0.8rem; }
       .mag-group-sub { margin-left: 0; width: 100%; }
+      .views { gap: 0.6rem; }
+      .mag-search input { font-size: 16px; } /* 아이폰에서 누를 때 화면 확대 방지 */
+      .view-btns { gap: 0.25rem; }
+      .view-btn { padding: 0.26rem 0.6rem 0.22rem; font-size: 0.68rem; }
       .modal { padding: 2.5rem 1.5rem; }
     }
     /* 본문: 단어는 자르지 않고 왼쪽 정렬, 휴대폰에선 글 폭을 넓혀 줄 끝 들쭉날쭉함을 줄임 */
@@ -214,10 +229,16 @@
     <h1><img src="logo.png" alt="잠자코"></h1>
   </header>
 
-  <div class="views" role="tablist">
-    <button class="view-btn mag-view-btn active" data-view="all" onclick="setMagView('all')">전체 보기</button>
-    <button class="view-btn mag-view-btn" data-view="issue" onclick="setMagView('issue')">호별 보기</button>
-    <button class="view-btn mag-view-btn" data-view="author" onclick="setMagView('author')">작가별 보기</button>
+  <div class="views">
+    <label class="mag-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input type="search" id="magSearch" placeholder="검색" aria-label="잠자코 글 검색" oninput="renderMag()">
+    </label>
+    <div class="view-btns" role="tablist">
+      <button class="view-btn mag-view-btn active" data-view="all" onclick="setMagView('all')">전체</button>
+      <button class="view-btn mag-view-btn" data-view="issue" onclick="setMagView('issue')">호별</button>
+      <button class="view-btn mag-view-btn" data-view="author" onclick="setMagView('author')">작가별</button>
+    </div>
   </div>
 
   <div id="magList"></div>
@@ -291,18 +312,36 @@
 
   function magGrid(list) { return `<div class="mag-grid">${list.map(magCard).join('')}</div>`; }
 
+  // 제목·본문·작가·태그에서 찾기 (띄어쓰기·대소문자 무시)
+  function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ''); }
+  function postText(p) {
+    if (!p._text) {
+      const d = document.createElement('div');
+      d.innerHTML = p.body || '';
+      p._text = norm([p.title, p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), d.textContent].join(' '));
+    }
+    return p._text;
+  }
+
   function renderMag() {
     const el = document.getElementById('magList');
     // 최신 호, 같은 호 안에서는 적은 순서대로
-    const posts = JAMJAKO_POSTS.slice().sort((a, b) => b.issue - a.issue);
+    const all = JAMJAKO_POSTS.slice().sort((a, b) => b.issue - a.issue);
     const mc = document.getElementById('magMastCount');
     if (mc) {
       const nos = JAMJAKO_ISSUES.map(i => i.no);
-      mc.textContent = nos.length ? `No.${pad2(Math.max(...nos))} · ${posts.length}편` : '창간 준비호';
+      mc.textContent = nos.length ? `No.${pad2(Math.max(...nos))} · ${all.length}편` : '창간 준비호';
     }
 
-    if (!posts.length) {
+    if (!all.length) {
       el.innerHTML = '<p class="writing-empty">첫 호를 준비하고 있어요.</p>';
+      return;
+    }
+
+    const q = norm(document.getElementById('magSearch').value);
+    const posts = q ? all.filter(p => postText(p).includes(q)) : all;
+    if (!posts.length) {
+      el.innerHTML = '<p class="writing-empty">찾는 글이 없어요.</p>';
       return;
     }
 
