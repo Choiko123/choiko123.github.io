@@ -164,9 +164,14 @@
     .modal-head { background: var(--neon); padding: 1.6rem 4rem 1.5rem; }
     .modal-tag { font-family: var(--kart); font-weight: 700; font-size: 0.74rem; margin-bottom: 0.7rem; }
     .modal-title { font-family: var(--kart); font-weight: 800; font-size: 1.8rem; line-height: 1.25; letter-spacing: -0.01em; }
+    .modal-subtitle { font-family: var(--kart); font-weight: 500; font-size: 0.95rem; line-height: 1.5; margin-top: 0.6rem; }
+    .modal-subtitle:empty { display: none; }
     .modal-date { font-family: var(--kart); font-weight: 500; font-size: 0.78rem; margin-top: 0.9rem; }
     .modal-body { padding: 2.6rem 4rem 0; font-size: 1rem; line-height: 1.95; color: var(--ink-light); }
     .modal-body p + p { margin-top: 1.5em; }
+    .modal-body .jam-sec { text-align: center; margin: 3em 0 2em; }
+    .modal-body .jam-sec:first-child { margin-top: 0; }
+    .modal-body .jam-img { display: block; width: 130px; margin: 1.5em 0; mix-blend-mode: multiply; }
     .modal-body blockquote { margin: 1.5em 0; padding-left: 1.2rem; border-left: 3px solid var(--neon); color: var(--ink-faint); }
     .modal-body .jam-notes {
       margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--line);
@@ -247,6 +252,7 @@
     <div class="modal-head">
       <p class="modal-tag" id="modalTag"></p>
       <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
       <p class="modal-date" id="modalDate"></p>
     </div>
     <div class="modal-body" id="modalBody"></div>
@@ -255,12 +261,13 @@
 
 <script src="posts.js"></script>
 <script>
-  function openModal(tag, title, date, body, cover) {
+  function openModal(tag, title, date, body, cover, subtitle) {
     const coverEl = document.getElementById('modalCover');
     if (cover) { coverEl.src = cover; coverEl.style.display = 'block'; }
     else { coverEl.removeAttribute('src'); coverEl.style.display = 'none'; }
     document.getElementById('modalTag').textContent = tag;
     document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalSubtitle').textContent = subtitle || '';
     document.getElementById('modalDate').textContent = date;
     document.getElementById('modalBody').innerHTML = body;
     document.getElementById('modalOverlay').classList.add('open');
@@ -295,7 +302,7 @@
       return `
         <article class="mag-card feature" onclick="openJamjako(${i})">
           <h3 class="feature-title">${esc(p.title)}</h3>
-          <p class="feature-text">${esc(plain(p.body).slice(0, 120))}</p>
+          <p class="feature-text">${esc(p.subtitle || plain(p.body).slice(0, 120))}</p>
           <div class="feature-foot">
             <span class="feature-no">No.${pad2(p.issue)}</span>
             <span class="feature-go">읽기 →</span>
@@ -323,7 +330,7 @@
   function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ''); }
   function postText(p) {
     if (!p._text) {
-      p._text = norm([p.title, p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
+      p._text = norm([p.title, p.subtitle || '', p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
     }
     return p._text;
   }
@@ -393,7 +400,7 @@
     const p = JAMJAKO_POSTS[i];
     if (!p) return;
     if (!fromHash) history.replaceState(null, '', '#' + (i + 1));
-    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.thumb);
+    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.thumb, p.subtitle);
   }
 
   renderMag();
