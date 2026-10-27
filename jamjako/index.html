@@ -256,8 +256,8 @@
       <input type="search" id="magSearch" placeholder="검색" aria-label="잠자코 글 검색" oninput="renderMag()">
     </label>
     <div class="view-btns" role="tablist">
-      <button class="view-btn mag-view-btn active" data-view="all" onclick="setMagView('all')">전체</button>
-      <button class="view-btn mag-view-btn" data-view="issue" onclick="setMagView('issue')">호별</button>
+      <button class="view-btn mag-view-btn" data-view="all" onclick="setMagView('all')">전체</button>
+      <button class="view-btn mag-view-btn active" data-view="issue" onclick="setMagView('issue')">호별</button>
       <button class="view-btn mag-view-btn" data-view="author" onclick="setMagView('author')">작가별</button>
     </div>
   </div>
@@ -309,7 +309,7 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  let magView = 'all';
+  let magView = 'issue';
 
   function pad2(n) { return String(n).padStart(2, '0'); }
   function esc(s) {
