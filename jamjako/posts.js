@@ -8,11 +8,12 @@
       - thumbPos: 썸네일에서 보일 위치 (선택). 예: '68% center' → 사진 오른쪽 기준
       - tags:  태그 목록 (없으면 빼도 됨). 예: ['영화리뷰', '에세이']
       - subtitle: 부제 (선택). 제목 아래 작게 표시
+      - bio: 작가 소개 한 줄 (선택). 글 끝에 '작가 / 소개'로 표시
       - cover: 글을 열었을 때 맨 위에 보일 가로 그림 (선택, 없으면 thumb)
       - look:  글마다 다른 폰트·색 (선택). index.html의 .look-이름 참고. 예: 'smile'
 
    [호 추가 예시]
-     { no: 1, theme: '호 제목', date: '2026. 10' },
+     { no: 1, theme: '호 제목', date: '2026. 10' },   (label: '창간호'처럼 쓰면 No.01 대신 그 이름으로 표시)
 
    [글 추가 예시]
      {
@@ -26,7 +27,7 @@
 ══════════════════════════════════════════════ */
 var JAMJAKO_ISSUES = [
   { no: 0, theme: '프롤로그', date: '2026. 10' },
-  { no: 1, theme: '참다', date: '2026. 10' },
+  { no: 1, label: '창간호', theme: '참다', date: '2026. 10' },
 ];
 
 var JAMJAKO_POSTS = [
@@ -95,6 +96,7 @@ var JAMJAKO_POSTS = [
   {
     issue: 1,
     author: '이나비',
+    bio: '덧니는 교정 할 생각 없다.',
     title: '스마일 !',
     date: '2026. 10. 27',
     thumb: 'jamjako-01-01.jpg',
@@ -114,6 +116,7 @@ var JAMJAKO_POSTS = [
   {
     issue: 1,
     author: '이지인',
+    bio: '영화를 공부하고 있습니다.',
     title: '업보',
     date: '2026. 10. 27',
     thumb: 'jamjako-01-02.jpg',
@@ -133,6 +136,7 @@ var JAMJAKO_POSTS = [
   {
     issue: 1,
     author: '권노은',
+    bio: '대구에서 태어나 서울에서 영화를 공부하고 있다.',
     title: '부패로의 초대',
     subtitle: '에세이 필름 <광합성하는 죽음>(차재민, 2024)에 관한 리뷰',
     date: '2026. 10. 27',

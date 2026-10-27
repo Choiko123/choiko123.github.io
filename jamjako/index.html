@@ -185,9 +185,11 @@
     .modal-body .jam-photo img { display: block; width: 100%; }
     .modal-body .jam-photo figcaption { font-size: 0.78rem; color: var(--ink-faint); text-align: right; margin-top: 0.5em; }
     .modal-body sup { font-size: 0.7em; }
+    .modal-body .jam-bio { margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--line); font-size: 0.86rem; color: var(--ink-faint); }
+    .modal-body .jam-notes + .jam-bio { margin-top: 1.5em; }
 
     /* 글마다 다른 폰트·색: posts.js의 look: '이름' → .look-이름 */
-    .look-smile .modal-head { background: #20263a; color: #f4f6fb; }
+    .look-smile .modal-head { background: #dde7f4; color: #20263a; }
     .look-smile .modal-title { font-family: 'Gowun Dodum', var(--kart); font-weight: 400; }
     .look-smile .modal-body { font-family: 'Gowun Dodum', var(--serif); }
     .look-upbo .modal-head { background: #e8622c; }
@@ -312,6 +314,9 @@
   let magView = 'issue';
 
   function pad2(n) { return String(n).padStart(2, '0'); }
+  // 호 이름: posts.js 호에 label이 있으면 그걸로 (예: 창간호), 없으면 No.01
+  function issueOf(no) { return JAMJAKO_ISSUES.find(is => is.no === no) || {}; }
+  function issueName(no) { return issueOf(no).label || `No.${pad2(no)}`; }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
@@ -330,7 +335,7 @@
           <h3 class="feature-title">${esc(p.title)}</h3>
           <p class="feature-text">${esc(p.subtitle || plain(p.body).slice(0, 120))}</p>
           <div class="feature-foot">
-            <span class="feature-no">No.${pad2(p.issue)}</span>
+            <span class="feature-no">${esc(issueName(p.issue))}</span>
             <span class="feature-go">읽기 →</span>
           </div>
         </article>`;
@@ -340,7 +345,7 @@
         <div class="mag-cover"><img src="${esc(p.thumb)}" alt="" loading="lazy"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ''}></div>
         <div class="mag-cap">
           <h3 class="mag-title">${esc(p.title)}</h3>
-          <p class="mag-sub"><span>No.${pad2(p.issue)} · ${esc(p.author)}</span>${(p.tags || []).map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</p>
+          <p class="mag-sub"><span>${esc(issueName(p.issue))} · ${esc(p.author)}</span>${(p.tags || []).map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</p>
         </div>
       </article>`;
   }
@@ -356,7 +361,7 @@
   function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ''); }
   function postText(p) {
     if (!p._text) {
-      p._text = norm([p.title, p.subtitle || '', p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
+      p._text = norm([p.title, p.subtitle || '', p.author, `no.${pad2(p.issue)}`, issueName(p.issue), (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
     }
     return p._text;
   }
@@ -368,7 +373,7 @@
     const mc = document.getElementById('magMastCount');
     if (mc) {
       const nos = JAMJAKO_ISSUES.map(i => i.no);
-      mc.textContent = nos.length ? `No.${pad2(Math.max(...nos))} · ${all.length}편` : '창간 준비호';
+      mc.textContent = nos.length ? `${issueName(Math.max(...nos))} · ${all.length}편` : '창간 준비호';
     }
 
     if (!all.length) {
@@ -393,7 +398,7 @@
         return `
           <section class="mag-group">
             <div class="mag-group-head">
-              <span class="mag-group-no">No.${pad2(is.no)}</span>
+              <span class="mag-group-no">${is.label ? esc(is.label) + ' :' : 'No.' + pad2(is.no)}</span>
               <span class="mag-group-title">${esc(is.theme || '')}</span>
               <span class="mag-group-sub">${esc(is.date || '')}</span>
             </div>
@@ -426,7 +431,7 @@
     const p = JAMJAKO_POSTS[i];
     if (!p) return;
     if (!fromHash) history.replaceState(null, '', '#' + (i + 1));
-    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
+    openModal(`잠자코 · ${issueOf(p.issue).label ? issueName(p.issue) + ' : ' + issueOf(p.issue).theme : issueName(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + (p.bio ? `<p class="jam-bio"><b>${esc(p.author)}</b> / ${esc(p.bio)}</p>` : '') + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
   }
 
   renderMag();
