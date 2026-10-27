@@ -187,13 +187,11 @@
     .modal-body sup { font-size: 0.7em; }
     /* 작가 소개: 명함 카드 */
     .modal-body .jam-bio {
-      position: relative; margin-top: 3em; max-width: 340px; aspect-ratio: 9 / 5;
+      margin-top: 3em; display: inline-block; max-width: 100%;
       border: 1.5px solid var(--ink); background: #fff; padding: 1.1rem 1.3rem;
-      display: flex; flex-direction: column; justify-content: flex-end;
       box-shadow: 4px 4px 0 var(--ink);
     }
-    .modal-body .jam-bio-mag { position: absolute; top: 0.9rem; left: 1.3rem; font-family: var(--kart); font-weight: 700; font-size: 0.68rem; color: var(--ink-faint); letter-spacing: 0.02em; }
-    .modal-body .jam-bio b { font-family: var(--kart); font-weight: 800; font-size: 1.25rem; color: var(--ink); line-height: 1.2; }
+    .modal-body .jam-bio b { display: block; font-family: var(--kart); font-weight: 800; font-size: 1.25rem; color: var(--ink); line-height: 1.2; }
     .modal-body .jam-bio p { margin-top: 0.35rem; font-size: 0.84rem; line-height: 1.6; color: var(--ink-light); }
     .modal-body .jam-notes + .jam-bio { margin-top: 2em; }
 
@@ -440,7 +438,7 @@
     const p = JAMJAKO_POSTS[i];
     if (!p) return;
     if (!fromHash) history.replaceState(null, '', '#' + (i + 1));
-    openModal(`잠자코 · ${issueOf(p.issue).label ? issueName(p.issue) + ' : ' + issueOf(p.issue).theme : issueName(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + (p.bio ? `<div class="jam-bio"><span class="jam-bio-mag">잠자코 ${esc(issueName(p.issue))}</span><b>${esc(p.author)}</b><p>${esc(p.bio)}</p></div>` : '') + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
+    openModal(`잠자코 · ${issueOf(p.issue).label ? issueName(p.issue) + ' : ' + issueOf(p.issue).theme : issueName(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + (p.bio ? `<div class="jam-bio"><b>${esc(p.author)}</b><p>${esc(p.bio)}</p></div>` : '') + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
   }
 
   renderMag();
