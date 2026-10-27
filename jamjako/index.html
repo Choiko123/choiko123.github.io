@@ -12,6 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <!-- 넥슨 카트 고딕 (제목용, 넥슨 무료 서체) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/KartriderKor/subsets/KartriderKor-dynamic-subset.css">
+  <!-- 글마다 다른 폰트 (look) -->
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&family=Nanum+Myeongjo:wght@400;700&family=Hahmlet:wght@400;700&family=Nanum+Gothic+Coding:wght@700&family=IBM+Plex+Sans+KR:wght@400&family=Do+Hyeon&family=Gothic+A1:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --neon: #e2ff1f;          /* 포인트: 형광노랑 */
@@ -179,6 +181,29 @@
     }
     .modal-body .jam-notes p + p { margin-top: 0.6em; }
     .modal-body .jam-notes a { color: inherit; }
+    .modal-body .jam-photo { margin: 2.2em 0; }
+    .modal-body .jam-photo img { display: block; width: 100%; }
+    .modal-body .jam-photo figcaption { font-size: 0.78rem; color: var(--ink-faint); text-align: right; margin-top: 0.5em; }
+    .modal-body sup { font-size: 0.7em; }
+
+    /* 글마다 다른 폰트·색: posts.js의 look: '이름' → .look-이름 */
+    .look-smile .modal-head { background: #20263a; color: #f4f6fb; }
+    .look-smile .modal-title { font-family: 'Gowun Dodum', var(--kart); font-weight: 400; }
+    .look-smile .modal-body { font-family: 'Gowun Dodum', var(--serif); }
+    .look-upbo .modal-head { background: #e8622c; }
+    .look-upbo .modal-title { font-family: 'Black Han Sans', var(--kart); font-weight: 400; font-size: 2.6rem; }
+    .look-upbo .modal-body { font-family: 'Nanum Myeongjo', var(--serif); }
+    .look-bupae .modal-head { background: #dfe5c8; color: #1f2a17; }
+    .look-bupae .modal-title { font-family: 'Hahmlet', var(--serif); font-weight: 700; }
+    .look-bupae .modal-subtitle { font-family: 'Hahmlet', var(--serif); font-weight: 400; }
+    .look-bupae .modal-body { font-family: 'Hahmlet', var(--serif); }
+    .look-ranha .modal-head { background: #1b1c3c; color: #e9eaff; }
+    .look-ranha .modal-title { font-family: 'Nanum Gothic Coding', var(--kart); font-weight: 700; }
+    .look-ranha .modal-body { font-family: 'IBM Plex Sans KR', var(--serif); }
+    .look-pee .modal-title { font-family: 'Do Hyeon', var(--kart); font-weight: 400; font-size: 2.2rem; }
+    .look-pee .modal-body { font-family: 'Gothic A1', var(--serif); }
+    .look-pee .modal-body .jam-sec { font-family: 'Do Hyeon', var(--kart); font-size: 1.3rem; }
+
     .modal-tags { margin-top: 2.5em; display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .modal-tags .mag-tag {
       font-family: var(--kart); font-size: 0.74rem; background: var(--ink); color: var(--neon);
@@ -261,7 +286,8 @@
 
 <script src="posts.js"></script>
 <script>
-  function openModal(tag, title, date, body, cover, subtitle) {
+  function openModal(tag, title, date, body, cover, subtitle, look) {
+    document.querySelector('.modal').className = 'modal' + (look ? ' look-' + look : '');
     const coverEl = document.getElementById('modalCover');
     if (cover) { coverEl.src = cover; coverEl.style.display = 'block'; }
     else { coverEl.removeAttribute('src'); coverEl.style.display = 'none'; }
@@ -400,7 +426,7 @@
     const p = JAMJAKO_POSTS[i];
     if (!p) return;
     if (!fromHash) history.replaceState(null, '', '#' + (i + 1));
-    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.thumb, p.subtitle);
+    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
   }
 
   renderMag();
