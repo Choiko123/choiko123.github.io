@@ -12,6 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <!-- 넥슨 카트 고딕 (제목용, 넥슨 무료 서체) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/KartriderKor/subsets/KartriderKor-dynamic-subset.css">
+  <!-- 글마다 다른 폰트 (look) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/KCCPakKyongni/subsets/KCCPakKyongni-dynamic-subset.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&family=Nanum+Myeongjo:wght@400;700&family=Hahmlet:wght@400;700&family=Nanum+Gothic+Coding:wght@700&family=IBM+Plex+Sans+KR:wght@400&family=Do+Hyeon&family=Gothic+A1:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --neon: #e2ff1f;          /* 포인트: 형광노랑 */
@@ -179,6 +182,38 @@
     }
     .modal-body .jam-notes p + p { margin-top: 0.6em; }
     .modal-body .jam-notes a { color: inherit; }
+    .modal-body .jam-photo { margin: 2.2em 0; }
+    .modal-body .jam-photo img { display: block; width: 100%; }
+    .modal-body .jam-photo figcaption { font-size: 0.78rem; color: var(--ink-faint); text-align: right; margin-top: 0.5em; }
+    .modal-body sup { font-size: 0.7em; }
+    /* 작가 소개: 명함 카드 */
+    .modal-body .jam-bio {
+      margin-top: 3em; display: inline-block; max-width: 100%;
+      border: 1.5px solid var(--ink); background: #fff; padding: 1.1rem 1.3rem;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .modal-body .jam-bio b { display: block; font-family: var(--kart); font-weight: 800; font-size: 1.25rem; color: var(--ink); line-height: 1.2; }
+    .modal-body .jam-bio p { margin-top: 0.35rem; font-size: 0.84rem; line-height: 1.6; color: var(--ink-light); }
+    .modal-body .jam-notes + .jam-bio { margin-top: 2em; }
+
+    /* 글마다 다른 폰트·색: posts.js의 look: '이름' → .look-이름 */
+    .look-smile .modal-head { background: #9fb3cf; color: #fff; }
+    .look-smile .modal-title { font-family: 'KCC PakKyongni', var(--kart); font-weight: 400; font-size: 2.2rem; }
+    .look-smile .modal-body { font-family: 'Gowun Dodum', var(--serif); }
+    .look-upbo .modal-head { background: #e8622c; }
+    .look-upbo .modal-title { font-family: 'Black Han Sans', var(--kart); font-weight: 400; font-size: 2.6rem; }
+    .look-upbo .modal-body { font-family: 'Nanum Myeongjo', var(--serif); }
+    .look-bupae .modal-head { background: #dfe5c8; color: #1f2a17; }
+    .look-bupae .modal-title { font-family: 'Hahmlet', var(--serif); font-weight: 700; }
+    .look-bupae .modal-subtitle { font-family: 'Hahmlet', var(--serif); font-weight: 400; }
+    .look-bupae .modal-body { font-family: 'Hahmlet', var(--serif); }
+    .look-ranha .modal-head { background: #1b1c3c; color: #e9eaff; }
+    .look-ranha .modal-title { font-family: 'Nanum Gothic Coding', var(--kart); font-weight: 700; }
+    .look-ranha .modal-body { font-family: 'IBM Plex Sans KR', var(--serif); }
+    .look-pee .modal-title { font-family: 'Do Hyeon', var(--kart); font-weight: 400; font-size: 2.2rem; }
+    .look-pee .modal-body { font-family: 'Gothic A1', var(--serif); }
+    .look-pee .modal-body .jam-sec { font-family: 'Do Hyeon', var(--kart); font-size: 1.3rem; }
+
     .modal-tags { margin-top: 2.5em; display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .modal-tags .mag-tag {
       font-family: var(--kart); font-size: 0.74rem; background: var(--ink); color: var(--neon);
@@ -231,8 +266,8 @@
       <input type="search" id="magSearch" placeholder="검색" aria-label="잠자코 글 검색" oninput="renderMag()">
     </label>
     <div class="view-btns" role="tablist">
-      <button class="view-btn mag-view-btn active" data-view="all" onclick="setMagView('all')">전체</button>
-      <button class="view-btn mag-view-btn" data-view="issue" onclick="setMagView('issue')">호별</button>
+      <button class="view-btn mag-view-btn" data-view="all" onclick="setMagView('all')">전체</button>
+      <button class="view-btn mag-view-btn active" data-view="issue" onclick="setMagView('issue')">호별</button>
       <button class="view-btn mag-view-btn" data-view="author" onclick="setMagView('author')">작가별</button>
     </div>
   </div>
@@ -261,7 +296,8 @@
 
 <script src="posts.js"></script>
 <script>
-  function openModal(tag, title, date, body, cover, subtitle) {
+  function openModal(tag, title, date, body, cover, subtitle, look) {
+    document.querySelector('.modal').className = 'modal' + (look ? ' look-' + look : '');
     const coverEl = document.getElementById('modalCover');
     if (cover) { coverEl.src = cover; coverEl.style.display = 'block'; }
     else { coverEl.removeAttribute('src'); coverEl.style.display = 'none'; }
@@ -283,9 +319,12 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  let magView = 'all';
+  let magView = 'issue';
 
   function pad2(n) { return String(n).padStart(2, '0'); }
+  // 호 이름: posts.js 호에 label이 있으면 그걸로 (예: 창간호), 없으면 No.01
+  function issueOf(no) { return JAMJAKO_ISSUES.find(is => is.no === no) || {}; }
+  function issueName(no) { return issueOf(no).label || `No.${pad2(no)}`; }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
@@ -304,7 +343,7 @@
           <h3 class="feature-title">${esc(p.title)}</h3>
           <p class="feature-text">${esc(p.subtitle || plain(p.body).slice(0, 120))}</p>
           <div class="feature-foot">
-            <span class="feature-no">No.${pad2(p.issue)}</span>
+            <span class="feature-no">${esc(issueName(p.issue))}</span>
             <span class="feature-go">읽기 →</span>
           </div>
         </article>`;
@@ -314,7 +353,7 @@
         <div class="mag-cover"><img src="${esc(p.thumb)}" alt="" loading="lazy"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ''}></div>
         <div class="mag-cap">
           <h3 class="mag-title">${esc(p.title)}</h3>
-          <p class="mag-sub"><span>No.${pad2(p.issue)} · ${esc(p.author)}</span>${(p.tags || []).map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</p>
+          <p class="mag-sub"><span>${esc(issueName(p.issue))} · ${esc(p.author)}</span>${(p.tags || []).map(t => `<span class="mag-tag">#${esc(t)}</span>`).join('')}</p>
         </div>
       </article>`;
   }
@@ -330,7 +369,7 @@
   function norm(s) { return String(s).toLowerCase().replace(/\s+/g, ''); }
   function postText(p) {
     if (!p._text) {
-      p._text = norm([p.title, p.subtitle || '', p.author, `no.${pad2(p.issue)}`, (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
+      p._text = norm([p.title, p.subtitle || '', p.author, `no.${pad2(p.issue)}`, issueName(p.issue), (p.tags || []).map(t => '#' + t).join(''), plain(p.body)].join(' '));
     }
     return p._text;
   }
@@ -342,7 +381,7 @@
     const mc = document.getElementById('magMastCount');
     if (mc) {
       const nos = JAMJAKO_ISSUES.map(i => i.no);
-      mc.textContent = nos.length ? `No.${pad2(Math.max(...nos))} · ${all.length}편` : '창간 준비호';
+      mc.textContent = nos.length ? `${issueName(Math.max(...nos))} · ${all.length}편` : '창간 준비호';
     }
 
     if (!all.length) {
@@ -367,7 +406,7 @@
         return `
           <section class="mag-group">
             <div class="mag-group-head">
-              <span class="mag-group-no">No.${pad2(is.no)}</span>
+              <span class="mag-group-no">${is.label ? esc(is.label) + ' :' : 'No.' + pad2(is.no)}</span>
               <span class="mag-group-title">${esc(is.theme || '')}</span>
               <span class="mag-group-sub">${esc(is.date || '')}</span>
             </div>
@@ -400,7 +439,7 @@
     const p = JAMJAKO_POSTS[i];
     if (!p) return;
     if (!fromHash) history.replaceState(null, '', '#' + (i + 1));
-    openModal(`잠자코 · No.${pad2(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.thumb, p.subtitle);
+    openModal(`잠자코 · ${issueOf(p.issue).label ? issueName(p.issue) + ' : ' + issueOf(p.issue).theme : issueName(p.issue)}`, p.title, `${p.author} · ${p.date}`, p.body + (p.bio ? `<div class="jam-bio"><b>${esc(p.author)}</b><p>${esc(p.bio)}</p></div>` : '') + magTags(p).replace('mag-tags', 'mag-tags modal-tags'), p.cover || p.thumb, p.subtitle, p.look);
   }
 
   renderMag();
