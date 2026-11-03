@@ -25,6 +25,7 @@
 ══════════════════════════════════════════════ */
 var JAMJAKO_ISSUES = [
   { no: 0, theme: '프롤로그', date: '2026. 10' },
+  { no: 1, theme: '참다', date: '2026. 11' },
 ];
 
 var JAMJAKO_POSTS = [
@@ -91,7 +92,7 @@ var JAMJAKO_POSTS = [
     `
   },
   {
-    issue: 0,
+    issue: 1,
     first: true,
     author: '최고은',
     title: '여는 글',
