@@ -171,6 +171,7 @@
     .modal-body p + p { margin-top: 1.5em; }
     .modal-body .jam-sec { text-align: center; margin: 3em 0 2em; }
     .modal-body .jam-sec:first-child { margin-top: 0; }
+    .modal-body .jam-sign { text-align: right; margin-top: 2.5em; }
     .modal-body .jam-img { display: block; width: 130px; margin: 1.5em 0; mix-blend-mode: multiply; }
     .modal-body blockquote { margin: 1.5em 0; padding-left: 1.2rem; border-left: 3px solid var(--neon); color: var(--ink-faint); }
     .modal-body .jam-notes {
@@ -337,8 +338,8 @@
 
   function renderMag() {
     const el = document.getElementById('magList');
-    // 최신 호, 같은 호 안에서는 적은 순서대로
-    const all = JAMJAKO_POSTS.slice().sort((a, b) => b.issue - a.issue);
+    // 최신 호, 같은 호 안에서는 first 글(여는 글)이 맨 앞, 나머지는 적은 순서대로
+    const all = JAMJAKO_POSTS.slice().sort((a, b) => (b.issue - a.issue) || ((b.first ? 1 : 0) - (a.first ? 1 : 0)));
     const mc = document.getElementById('magMastCount');
     if (mc) {
       const nos = JAMJAKO_ISSUES.map(i => i.no);
