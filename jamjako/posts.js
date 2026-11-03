@@ -228,12 +228,11 @@ var JAMJAKO_POSTS = [
       <p>뭘 하든 여자가 더 오래 걸릴 수밖에 없는 거 아냐?라고 할 수 있다. 하지만 생물학적으로도 구조적으로도 여자가 더 오래 걸린다면 사실 평등을 위해선 여성의 변기 개수를 남성보다 많이 설치하는 것이 옳다. 그래야 여성 또한 남성만큼 덜 기다리고 화장실을 이용할 수 있을 테니까. 그냥 당연하다고 여겼던 것이 사실은 차별일 수 있다는 사실, 흥미롭지 않은가? 흔히 남녀 화장실을 같은 면적으로 짓기 때문에 더 많은 면적을 요구하는 여성의 변기 개수가 줄어들고, 더 오래 걸리는 탓에 대기 시간이 몇 배는 길어지는 것이다. 한국에는 여성 변기를 남성보다 적게 두지 말라는 법까지 있지만, 그마저도 지켜지지 않는다. 단순히 남자가 빨리 싸니까, 라고 하기에는 ‘공평’을 가장한 차별이 포함되어 있다.</p>
       <p>기다려야 하니까 그냥 다음에 갈래. 했던 경험이 여자라면 분명 많이 있을 것이다. 무서우니까 다음에 갈래. 했던 경험도. 공중화장실은 몰카가 많으니까, 했던 경험도… 여성들은 분명 이러한 이유로 오줌 참기를 자연스럽게 체득해왔다.</p>
       <p class="jam-sec">4.</p>
-      <p>그렇다면 이러한 오줌 참기의 대가는 무엇일까? 가장 먼저 생각하는 것은 방광염일 것이다. 인도의 여대생 기숙사에서 778명을 조사한 연구에서도 습관적으로 참는 것과 방광염이 연관이 있었다. 이들이 참는 이유는 화장실이 없어서, 더러워서, 남녀가 섞인 자리에서 자리를 비우기 어려워서였다.[8]</p>
-      <p>더욱 흥미로웠던 연구도 있다. 미국 여교사 791명을 대상으로 한 조사(응답률 53%)에서 근무일 하루 화장실을 가는 횟수는 평균 2.7회, 약 4분의 1은 근무 중 한 번 이하였다. 그런데 화장실에 가는 횟수 자체는 방광염과 관련이 없었다. 위험을 높인 건 따로 있었다. 응답자 <b>절반이 화장실에 가지 않으려고 일부러 물을 덜 마셨고</b>, 그런 사람은 방광염 위험이 2.2배였다. 연구진은 이 결과가 사실로 확인된다면 노동자의 화장실 접근성을 정책으로 보장해야 한다고 했다.[9] 오줌보다 목마름을 참는 쪽이 더 위험했던 셈이다.</p>
+      <p>그렇다면 이러한 오줌 참기의 대가는 무엇일까? 가장 먼저 생각하는 것은 방광염일 것이다. 그러나 그것의 직접적인 관계를 찾기는 어려웠다. 오히려 조금 다른 흥미로운 연구를 찾을 수 있었는데, 미국 여교사 791명을 대상으로 한 조사(응답률 53%)에서 근무일 하루 화장실을 가는 횟수는 평균 2.7회, 약 4분의 1은 근무 중 한 번 이하였다. 그런데 화장실에 가는 횟수 자체는 방광염과 관련이 없었다. 위험을 높인 건 따로 있었다. 응답자 <b>절반이 화장실에 가지 않으려고 일부러 물을 덜 마셨고</b>, 그런 사람은 방광염 위험이 2.2배였다. 연구진은 이 결과가 사실로 확인된다면 노동자의 화장실 접근성을 정책으로 보장해야 한다고 했다.[8] 오줌보다 목마름을 참는 쪽이 더 위험했던 셈이다.</p>
       <p>이처럼 우리는 오줌만 참는 것이 아니다.</p>
       <p class="jam-sec">5.</p>
       <p>아이리스 매리언 영은 「여자애처럼 던지기(Throwing Like a Girl)」(1980)에서 여자애들이 공을 “여자애처럼” 던지는 건 힘이 없어서가 아니라, 몸을 움츠리고 주어진 공간보다 작게 쓰도록 배웠기 때문이라고 한다. 여성은 몸을 ‘보여지는 대상’으로도 의식하기 때문에 “나는 할 수 있다” 대신 “나는 못 한다”가 몸에 밴다. 산드라 바트키 또한 「푸코, 여성성, 그리고 가부장적 권력의 근대화」(1988)에서 여성의 자세·몸짓·움직임이 누가 시키지 않아도 스스로 감시하는 규율이 된다고 본다. ‘감시 대상’이 된 여성의 몸은 다양한 것을 참도록 길러진다.</p>
-      <p>캐롤 길리건과 린 마이클 브라운은 <i>Meeting at the Crossroads</i>(1992)에서 여자아이들을 여러 해 인터뷰했는데, 여자아이들은 사춘기에 이르며 관계를 지키려고 솔직한 생각과 감정을 숨기기 시작했다. 길리건은 2024년 에세이에서 이걸 “여성이 가부장제와 맺는 침묵의 거래”라고 부르고, “자기를 침묵시키는 것은 우울의 처방”이라고 썼다.[10] 소라야 시머리 또한 <i>Rage Becomes Her</i>(2018)에서 여자아이들은 화를 내면 ‘예민하다’, ‘보기 안 좋다’는 말을 듣고 화를 삼키도록 길들여진다고 말한다.</p>
+      <p>캐롤 길리건과 린 마이클 브라운은 <i>Meeting at the Crossroads</i>(1992)에서 여자아이들을 여러 해 인터뷰했는데, 여자아이들은 사춘기에 이르며 관계를 지키려고 솔직한 생각과 감정을 숨기기 시작했다. 길리건은 2024년 에세이에서 이걸 “여성이 가부장제와 맺는 침묵의 거래”라고 부르고, “자기를 침묵시키는 것은 우울의 처방”이라고 썼다.[9] 소라야 시머리 또한 <i>Rage Becomes Her</i>(2018)에서 여자아이들은 화를 내면 ‘예민하다’, ‘보기 안 좋다’는 말을 듣고 화를 삼키도록 길들여진다고 말한다.</p>
       <p>다이애나 호프만과 아니타 타르지안은 「아프다고 울던 소녀(The Girl Who Cried Pain)」(2001)에서 여성은 더 자주, 더 심하게, 더 오래 아프다고 보고하는데도 진통 치료는 덜 적극적으로 받는다는 ‘역설’을 말한다. 여자는 참도록 배우고, 막상 아프다고 말하면 믿어주지 않는 구조다.</p>
       <p>하미나는 『미쳐있고 괴상하며 오만하고 똑똑한 여자들: 이해받지 못하는 고통, 여성 우울증』(동아시아, 2021)에서 2~30대 여성 31명을 인터뷰하며, 1장 ‘엄살’(부제: 의사는 여자의 말을 믿지 않는다)에서 턱관절 장애, 히스테리아의 역사, “아무도 믿어주지 않는 고통”을 말한다. “우리는 우선 자신의 고통부터 믿어야 한다.”고 하는 문장에서 나는 깊은 슬픔을 느꼈다. 단순한 생리현상에서부터 감정, 그리고 고통까지. 여성은 참도록 길러진 것이 맞을지도 모르겠다.</p>
       <p class="jam-sec">6.</p>
@@ -246,9 +245,8 @@ var JAMJAKO_POSTS = [
         <p>[5] 서울신문, “왜 여성화장실 붐비나 했더니…남성 변기의 62% 불과”, 2019.2.8. (국회입법조사처 보고서 인용) <a href="https://m.seoul.co.kr/news/2019/02/08/20190208500139" target="_blank" rel="noopener">링크</a></p>
         <p>[6] 한국교육신문, “초등학교 화장실 남녀 불평등”, 2005.9.21. <a href="https://hangyo.com/mobile/article.html?no=13921" target="_blank" rel="noopener">링크</a></p>
         <p>[7] Anthony &amp; Dufresne, “Potty Parity in Perspective”, <i>Journal of Planning Literature</i>, 2007. <a href="https://www.ideals.illinois.edu/items/11753/bitstreams/59865/data.pdf" target="_blank" rel="noopener">링크</a></p>
-        <p>[8] Jagtap 외, “Comprehensive assessment of holding urine as a behavioral risk factor for UTI in women”, <i>BMC Infectious Diseases</i>, 2022. <a href="https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07501-4" target="_blank" rel="noopener">링크</a></p>
-        <p>[9] Nygaard &amp; Linder, “Thirst at work: an occupational hazard?”, <i>International Urogynecology Journal</i>, 1997. <a href="https://link.springer.com/doi/10.1007/BF02765593" target="_blank" rel="noopener">링크</a></p>
-        <p>[10] Carol Gilligan, “For girls, silence is the bad bargain with patriarchy”, <i>Aeon</i>, 2024. <a href="https://aeon.co/essays/for-girls-silence-is-the-bad-bargain-with-patriarchy" target="_blank" rel="noopener">링크</a></p>
+        <p>[8] Nygaard &amp; Linder, “Thirst at work: an occupational hazard?”, <i>International Urogynecology Journal</i>, 1997. <a href="https://link.springer.com/doi/10.1007/BF02765593" target="_blank" rel="noopener">링크</a></p>
+        <p>[9] Carol Gilligan, “For girls, silence is the bad bargain with patriarchy”, <i>Aeon</i>, 2024. <a href="https://aeon.co/essays/for-girls-silence-is-the-bad-bargain-with-patriarchy" target="_blank" rel="noopener">링크</a></p>
       </div>
     `
   },
