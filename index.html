@@ -1115,6 +1115,15 @@
       .modal-overlay { padding-left: 0.6rem; padding-right: 0.6rem; }
       .modal-body { font-size: 0.97rem; }
     }
+
+    /* ── 우울과 차차차 (구독자 전용) ── */
+    .members-lock { max-width: 360px; margin: 3rem auto 4rem; text-align: center; }
+    .members-lock-mark { font-size: 1.4rem; margin-bottom: 1.2rem; color: var(--ink-faint); }
+    .members-lock-text { font-size: 0.9rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 2rem; }
+    .members-lock .form-input { text-align: center; letter-spacing: 0.1em; }
+    .members-lock-error { min-height: 1.4rem; margin-top: 0.8rem; font-size: 0.78rem; color: var(--ink-faint); }
+    .members-intro { font-size: 0.88rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 2rem; }
+    .members-logout { display: block; margin: 2.5rem auto 0; background: none; border: none; font-family: inherit; font-size: 0.72rem; color: var(--ink-faint); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   </style>
 </head>
 <body>
@@ -1135,6 +1144,7 @@
   <div class="menu-inner">
     <ul class="menu-items">
       <li><button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button></li>
+      <li><button class="menu-item-link" onclick="showPage('members')">우울과 차차차</button></li>
       <li><button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button></li>
       <li><button class="menu-item-link" onclick="showPage('about')">소개</button></li>
     </ul>
@@ -1248,6 +1258,37 @@
         <span class="writing-arrow">→</span>
       </div>
 
+    </div>
+
+    <footer>
+      <span class="footer-text">© 2026</span>
+    </footer>
+  </div>
+</div>
+
+<!-- 우울과 차차차 (구독자 전용, 암호화) 페이지 -->
+<div class="page" id="page-members">
+  <div class="page-inner">
+    <button class="page-back" onclick="showHome()">홈으로</button>
+    <div class="section-header">
+      <span class="section-title">우울과 차차차</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="members-lock" id="membersLock">
+      <p class="members-lock-mark">🔒︎</p>
+      <p class="members-lock-text">구독자 전용 연재예요.<br>안내받은 비밀번호를 입력해주세요.</p>
+      <form onsubmit="unlockMembers(event)">
+        <input class="form-input" id="membersPw" type="password" placeholder="비밀번호" autocomplete="current-password">
+        <button class="form-submit" id="membersBtn" type="submit">열기</button>
+      </form>
+      <p class="members-lock-error" id="membersError"></p>
+    </div>
+
+    <div id="membersContent" style="display:none">
+      <p class="members-intro" id="membersIntro"></p>
+      <div class="writing-list" id="membersList"></div>
+      <button class="members-logout" onclick="lockMembers()">이 기기에서 잠그기</button>
     </div>
 
     <footer>
@@ -1523,6 +1564,93 @@
       '<img src="ep3-image.jpg" alt="" style="width:100%; margin-top:2rem; display:block;">'
     );
   };
+
+  /* ── 우울과 차차차: 비밀번호로 복호화 (members/posts.enc.js) ── */
+  const MEMBERS_KEY = 'choiko-members-key';
+  let membersPosts = [];
+  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+  function loadMembersData() {
+    if (window.MEMBERS_DATA) return Promise.resolve(window.MEMBERS_DATA);
+    return new Promise((ok, fail) => {
+      const sc = document.createElement('script');
+      sc.src = 'members/posts.enc.js?v=' + Date.now();
+      sc.onload = () => ok(window.MEMBERS_DATA);
+      sc.onerror = fail;
+      document.head.appendChild(sc);
+    });
+  }
+
+  async function deriveMembersKey(pw, d) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw.normalize('NFC')), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: b64d(d.salt), iterations: d.iter }, base, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+  }
+
+  async function decryptMembers(key, d) {
+    const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(d.iv) }, key, b64d(d.ct));
+    return JSON.parse(new TextDecoder().decode(buf));
+  }
+
+  function renderMembers(data) {
+    membersPosts = data.posts || [];
+    const intro = document.getElementById('membersIntro');
+    intro.innerHTML = data.intro || '';
+    intro.style.display = data.intro ? '' : 'none';
+    const list = document.getElementById('membersList');
+    list.innerHTML = '';
+    membersPosts.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'writing-item';
+      el.innerHTML = '<span class="writing-date"></span><div class="writing-info"><p class="writing-tag">우울과 차차차</p><p class="writing-title"></p></div><span class="writing-arrow">→</span>';
+      el.querySelector('.writing-date').textContent = p.short || '';
+      el.querySelector('.writing-title').textContent = p.title;
+      el.onclick = () => openModal('우울과 차차차', p.title, p.date || '', p.body, p.cover);
+      list.prepend(el);
+    });
+    document.getElementById('membersLock').style.display = 'none';
+    document.getElementById('membersContent').style.display = 'block';
+  }
+
+  async function unlockMembers(e) {
+    e.preventDefault();
+    const pw = document.getElementById('membersPw').value;
+    const err = document.getElementById('membersError');
+    const btn = document.getElementById('membersBtn');
+    if (!pw) return;
+    err.textContent = ''; btn.disabled = true; btn.textContent = '여는 중…';
+    try {
+      const d = await loadMembersData();
+      const key = await deriveMembersKey(pw, d);
+      const data = await decryptMembers(key, d);
+      const raw = new Uint8Array(await crypto.subtle.exportKey('raw', key));
+      localStorage.setItem(MEMBERS_KEY, JSON.stringify({ salt: d.salt, key: btoa(String.fromCharCode(...raw)) }));
+      renderMembers(data);
+    } catch (_) {
+      err.textContent = '비밀번호가 맞지 않아요.';
+    }
+    btn.disabled = false; btn.textContent = '열기';
+  }
+
+  function lockMembers() {
+    localStorage.removeItem(MEMBERS_KEY);
+    membersPosts = [];
+    document.getElementById('membersList').innerHTML = '';
+    document.getElementById('membersPw').value = '';
+    document.getElementById('membersContent').style.display = 'none';
+    document.getElementById('membersLock').style.display = 'block';
+  }
+
+  async function autoUnlockMembers() {
+    const saved = JSON.parse(localStorage.getItem(MEMBERS_KEY) || 'null');
+    if (!saved) return;
+    try {
+      const d = await loadMembersData();
+      if (d.salt !== saved.salt) throw 0;  // 비밀번호가 바뀌면 다시 묻기
+      const key = await crypto.subtle.importKey('raw', b64d(saved.key), 'AES-GCM', false, ['decrypt']);
+      renderMembers(await decryptMembers(key, d));
+    } catch (_) { localStorage.removeItem(MEMBERS_KEY); }
+  }
+  autoUnlockMembers();
 
 </script>
 </body>
