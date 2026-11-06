@@ -1123,6 +1123,20 @@
     .members-lock .form-input { text-align: center; letter-spacing: 0.1em; }
     .members-lock-error { min-height: 1.4rem; margin-top: 0.8rem; font-size: 0.78rem; color: var(--ink-faint); }
     .members-intro { font-size: 0.88rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 2rem; }
+    .cmt { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+    .modal-body .cmt p { margin: 0; text-indent: 0; }
+    .modal-body .cmt .cmt-name { margin-bottom: 0.35rem; }
+    .modal-body .cmt .cmt-title { margin-bottom: 1rem; }
+    .cmt-title { font-size: 0.72rem; letter-spacing: 0.14em; color: var(--ink-faint); margin-bottom: 1.5rem; }
+    .cmt-item { padding: 1rem 0; border-bottom: 1px solid var(--rule-soft, #cfcecb); }
+    .cmt-name { font-size: 0.78rem; font-weight: 500; color: var(--ink); margin-bottom: 0.35rem; }
+    .cmt-name span { font-weight: 300; color: var(--ink-faint); margin-left: 0.5rem; font-size: 0.7rem; }
+    .cmt-text { font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: var(--ink-light); white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+    .cmt-reply { margin: 0.8rem 0 0 1rem; padding-left: 0.9rem; border-left: 1px solid var(--ink); }
+    .cmt-empty { font-size: 0.82rem; color: var(--ink-faint); padding: 0.5rem 0 1rem; }
+    .cmt-form { margin-top: 1.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .cmt-form textarea { resize: vertical; min-height: 5.5rem; line-height: 1.8; }
+    .cmt-note { font-size: 0.72rem; color: var(--ink-faint); min-height: 1rem; }
     .members-logout { display: block; margin: 2.5rem auto 0; background: none; border: none; font-family: inherit; font-size: 0.72rem; color: var(--ink-faint); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   </style>
 </head>
@@ -1641,6 +1655,7 @@
   /* ── 우울과 차차차: 비밀번호로 복호화 (members/posts.enc.js) ── */
   const MEMBERS_KEY = 'choiko-members-key';
   let membersPosts = [];
+  let membersCommentsUrl = '';
   const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
   function loadMembersData() {
@@ -1666,6 +1681,7 @@
 
   function renderMembers(data) {
     membersPosts = data.posts || [];
+    membersCommentsUrl = data.commentsUrl || '';
     const intro = document.getElementById('membersIntro');
     intro.innerHTML = data.intro || '';
     intro.style.display = data.intro ? '' : 'none';
@@ -1677,7 +1693,7 @@
       el.innerHTML = '<span class="writing-date"></span><div class="writing-info"><p class="writing-tag">우울과 차차차</p><p class="writing-title"></p></div><span class="writing-arrow">→</span>';
       el.querySelector('.writing-date').textContent = p.short || '';
       el.querySelector('.writing-title').textContent = p.title;
-      el.onclick = () => openModal('우울과 차차차', p.title, p.date || '', p.body, p.cover);
+      el.onclick = () => { openModal('우울과 차차차', p.title, p.date || '', p.body, p.cover); if (membersCommentsUrl) mountComments(p.id || ('ep' + (i + 1))); };
       list.prepend(el);
     });
     document.getElementById('membersLock').style.display = 'none';
@@ -1723,6 +1739,70 @@
       renderMembers(await decryptMembers(key, d));
     } catch (_) { localStorage.removeItem(MEMBERS_KEY); }
   }
+  /* ── 우울과 차차차 댓글 (구글 시트 Apps Script, 주소는 암호화된 데이터 안에 있음) ── */
+  function cmtEl(c) {
+    const el = document.createElement('div');
+    el.className = 'cmt-item';
+    el.innerHTML = '<p class="cmt-name"></p><p class="cmt-text"></p>';
+    el.querySelector('.cmt-name').textContent = c.name || '익명';
+    if (c.t) {
+      const d = new Date(c.t), sp = document.createElement('span');
+      sp.textContent = d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate();
+      el.querySelector('.cmt-name').appendChild(sp);
+    }
+    el.querySelector('.cmt-text').textContent = c.text;
+    if (c.reply) {
+      const r = document.createElement('div');
+      r.className = 'cmt-reply';
+      r.innerHTML = '<p class="cmt-name">초이코</p><p class="cmt-text"></p>';
+      r.querySelector('.cmt-text').textContent = c.reply;
+      el.appendChild(r);
+    }
+    return el;
+  }
+
+  async function loadComments(postId, list) {
+    try {
+      const res = await fetch(membersCommentsUrl + '?post=' + encodeURIComponent(postId));
+      const items = await res.json();
+      list.innerHTML = '';
+      if (!items.length) list.innerHTML = '<p class="cmt-empty">아직 댓글이 없어요.</p>';
+      items.forEach(c => list.appendChild(cmtEl(c)));
+    } catch (_) {
+      list.innerHTML = '<p class="cmt-empty">댓글을 불러오지 못했어요.</p>';
+    }
+  }
+
+  function mountComments(postId) {
+    const box = document.createElement('div');
+    box.className = 'cmt';
+    box.innerHTML = '<p class="cmt-title">댓글</p><div class="cmt-list"><p class="cmt-empty">불러오는 중…</p></div>' +
+      '<form class="cmt-form"><input class="form-input" maxlength="20" placeholder="닉네임 (안 쓰면 익명)">' +
+      '<textarea class="form-input" maxlength="1000" placeholder="댓글을 남겨주세요" required></textarea>' +
+      '<button class="form-submit" type="submit">남기기</button><p class="cmt-note"></p></form>';
+    document.getElementById('modalBody').appendChild(box);
+    const list = box.querySelector('.cmt-list');
+    const form = box.querySelector('form');
+    loadComments(postId, list);
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const name = form.querySelector('input').value.trim();
+      const text = form.querySelector('textarea').value.trim();
+      const note = form.querySelector('.cmt-note');
+      const btn = form.querySelector('button');
+      if (!text) return;
+      btn.disabled = true; note.textContent = '남기는 중…';
+      try {
+        await fetch(membersCommentsUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ post: postId, name, text }) });
+        list.querySelector('.cmt-empty')?.remove();
+        list.appendChild(cmtEl({ name: name || '익명', text, t: Date.now() }));
+        form.querySelector('textarea').value = '';
+        note.textContent = '댓글이 남겨졌어요.';
+      } catch (_) { note.textContent = '댓글을 남기지 못했어요. 잠시 뒤 다시 해주세요.'; }
+      btn.disabled = false;
+    };
+  }
+
   autoUnlockMembers();
 
 </script>

@@ -1,2 +1,2 @@
 // 자동 생성 파일 (tools/encrypt-members.mjs). 직접 고치지 말 것.
-window.MEMBERS_DATA = {"v":1,"iter":310000,"salt":"E5k6qI4A4wOe+k5YaZS+LA==","iv":"1rz//MVRIl1WWyqV","ct":"B4R0WpZ63v2rx+mcF4AQYNzZcdhhvqkJQqcUdHn6hzVgZTlaHV72rs5HgTsB/c3o5EpsqDzIy0PzWT3Qz92TZHRmAUA4kTUbL7k/n32slYkEjZ7v20xASKWoVMhAXwuG72K9svmOSJdtVa7b"};
+window.MEMBERS_DATA = {"v":1,"iter":310000,"salt":"ib0MUp7eqABz+dbnzP7KWw==","iv":"0R78DDz0KQvXFpxq","ct":"t7WXNhXnZ+6O6Da2IbbAQWu/ueu5OkUgfZjBaDgNK7lT6DTI0QcbmZqvcXntRRvBA/wbEqELwJDYoy0wPrlsUHnYcIrJwzvKOzSv56v0KylMH8LrCSIbcJ/Hm0jvG2uw21S9SOKZJHQTM/B9"};
