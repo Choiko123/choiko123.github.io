@@ -1135,8 +1135,8 @@
   <div class="menu-inner">
     <ul class="menu-items">
       <li><button class="menu-item-link" onclick="showPage('writings')">어디까지 말했더라</button></li>
-      <li><button class="menu-item-link" onclick="showPage('choiko')">CHOIKO</button></li>
-      <li><button class="menu-item-link" onclick="showPage('about')">소개</button></li>
+      <li><button class="menu-item-link" onclick="showPage('choiko')">PURCHASE</button></li>
+      <li><button class="menu-item-link" onclick="showPage('about')">CONTACT</button></li>
     </ul>
     <a class="menu-mag" href="jamjako/" aria-label="잠자코">
       <span class="menu-mag-label">매거진</span>
@@ -1256,16 +1256,28 @@
   </div>
 </div>
 
-<!-- CHOIKO 페이지 -->
+<!-- PURCHASE 페이지 -->
 <div class="page" id="page-choiko">
   <div class="page-inner">
     <button class="page-back" onclick="showHome()">홈으로</button>
     <div class="section-header">
-      <span class="section-title">CHOIKO</span>
+      <span class="section-title">PURCHASE</span>
       <div class="section-rule"></div>
     </div>
 
     <div class="choiko-grid">
+      <div class="product-card" onclick="openShopModal('subscribe')">
+        <div class="product-image">
+          <img src="chachacha6/01.jpg" alt="우울과 차차차 6 : 중독과 우울">
+        </div>
+        <div>
+          <p class="product-tag">이메일 연재 구독</p>
+          <p class="product-title">우울과 차차차 6 : 중독과 우울</p>
+        </div>
+        <p class="product-price">5,000원</p>
+        <p class="product-cta">구독하기 →</p>
+      </div>
+
       <div class="product-card" onclick="openShopModal('book')">
         <div class="product-image">
           <img src="book-cover.jpg" alt="안 할 수도 있었던 말">
@@ -1285,12 +1297,12 @@
   </div>
 </div>
 
-<!-- 소개 페이지 -->
+<!-- CONTACT 페이지 -->
 <div class="page" id="page-about">
   <div class="page-inner">
     <button class="page-back" onclick="showHome()">홈으로</button>
     <div class="section-header">
-      <span class="section-title">소개</span>
+      <span class="section-title">CONTACT</span>
       <div class="section-rule"></div>
     </div>
 
@@ -1313,6 +1325,63 @@
     <footer>
       <span class="footer-text">© 2026</span>
     </footer>
+  </div>
+</div>
+
+<!-- 우울과 차차차 6 구독 모달 -->
+<div class="shop-modal-overlay" id="shopModal-subscribe" onclick="closeShopModalOutside(event, 'subscribe')">
+  <div class="shop-modal" style="max-width:780px;">
+    <button class="shop-modal-close" onclick="closeShopModal('subscribe')">✕</button>
+    <p class="shop-modal-tag">이메일 연재 구독</p>
+    <h2 class="shop-modal-title">우울과 차차차 6 : 중독과 우울</h2>
+    <p class="shop-modal-price">5,000원</p>
+
+    <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem;">
+      <img src="chachacha6/06.jpg" alt="시즌6 우울과 차차차 : 중독과우울. 한 달간 주 3회 에세이 연재 5,000원 11/13~12/11" style="width:100%; display:block;">
+      <img src="chachacha6/01.jpg" alt="우울과차차차6 중독과 우울" style="width:100%; display:block;">
+      <img src="chachacha6/02.jpg" alt="우울할수록 중독에 약해졌던 것 같아요. 슬픔을 잊으려는 발버둥이기도 했지만 결국 중독은 저를 더 우울하게 만들 뿐이었습니다" style="width:100%; display:block;">
+      <img src="chachacha6/03.jpg" alt="이렇게살수는없어!!!!!! 외치고 가장 먼저 한 짓은 아침 글쓰기. 햇빛 받으면서 고양이랑 책상에 앉아있으니 절로 디톡스가 되더라구요" style="width:100%; display:block;">
+      <img src="chachacha6/04.jpg" alt="하나의 읽기와 또 하나의 쓰기, 아침마다 전날밤의 우울을 파헤치기. 저는 이 방법으로 차근차근 우울을 직시하는 연습을 해 보려고 하고 있어요" style="width:100%; display:block;">
+      <img src="chachacha6/05.jpg" alt="저의 여정을 한 번 읽어보실래요. 같은 마음을 읽으며 위로 받고 우울과 함께 살아낼 방법을 도모해 보는 것이죠. 이메일로 보내드리니 답장도 종종 주고 받아요" style="width:100%; display:block;">
+    </div>
+
+    <div style="margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--rule);">
+      <p style="font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem;">연재 정보</p>
+      <div style="display:flex; flex-direction:column; gap:0.5rem; font-family:'EB Garamond',Georgia,serif; font-size:0.85rem; font-style:italic; color:var(--ink-faint); line-height:1.8;">
+        <span>주제 — 중독과 우울</span>
+        <span>연재 — 한 달간 주 3회 에세이 연재</span>
+        <span>기간 — 11/13~12/11</span>
+        <span>받는 방법 — 이메일 (답장도 종종 주고 받아요)</span>
+        <span>구독료 — 5,000원</span>
+      </div>
+    </div>
+
+    <div id="subscribe-form-wrap">
+      <div class="shop-form">
+        <div class="form-field">
+          <label class="form-label">이름</label>
+          <input class="form-input" id="sub-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="form-field">
+          <label class="form-label">이메일 (연재 글을 받을 주소)</label>
+          <input class="form-input" id="sub-email" type="email" placeholder="hello@email.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">연락처</label>
+          <input class="form-input" id="sub-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+        <button class="form-submit" onclick="submitForm('subscribe')">구독 신청하기</button>
+      </div>
+      <div class="payment-notice">
+        제출 후 아래 방법으로 5,000원을 입금해 주세요.<br>
+        카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank">송금 링크 열기</a><br>
+        계좌이체 → 카카오뱅크 3333-09-4004564 최고은
+      </div>
+    </div>
+    <div class="form-success" id="subscribe-success">
+      <p class="form-success-title">구독해주셔서 감사합니다.</p>
+      <p class="form-success-text">입금 확인 후 적어주신 이메일로 연재 글을 보내드릴게요.<br>카카오페이 또는 계좌이체로 5,000원을 보내주세요.<br><br>카카오페이 → <a href="https://qr.kakaopay.com/FUjXMOABj" target="_blank" style="color:var(--accent)">송금 링크</a><br>카카오뱅크 3333-09-4004564 최고은</p>
+    </div>
   </div>
 </div>
 
@@ -1491,6 +1560,20 @@
   const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz4_1MLCLtWqnV3O29MbP2qD9vexqIRADvt8vdvnZWnRkEKAiYzneGxEXvraZrKxeGf5w/exec';
 
   function submitForm(type) {
+    if (type === 'subscribe') {
+      const name  = document.getElementById('sub-name').value.trim();
+      const email = document.getElementById('sub-email').value.trim();
+      const phone = document.getElementById('sub-phone').value.trim();
+      if (!name || !email || !phone) { alert('모든 항목을 입력해주세요.'); return; }
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ type: 'subscribe', season: '6 중독과 우울', name: name, email: email, phone: phone })
+      });
+      document.getElementById('subscribe-form-wrap').style.display = 'none';
+      document.getElementById('subscribe-success').classList.add('show');
+    }
     if (type === 'book') {
       const name    = document.getElementById('book-name').value.trim();
       const email   = document.getElementById('book-email').value.trim();
@@ -1509,8 +1592,15 @@
   }
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeModal(); closeMenu(); closeShopModal('book'); }
+    if (e.key === 'Escape') { closeModal(); closeMenu(); closeShopModal('book'); closeShopModal('subscribe'); }
   });
+
+  (function openFromHash() {
+    const h = location.hash.replace('#', '').toLowerCase();
+    if (h === 'purchase') showPage('choiko');
+    else if (h === 'contact') showPage('about');
+    else if (h === 'subscribe') { showPage('choiko'); openShopModal('subscribe'); }
+  })();
 
   document.getElementById('ep3-item').onclick = function() {
     openModal('에세이', 'ep.3 — 설명하지 않고 알아차려지는 일', '2026. 5. 9',
