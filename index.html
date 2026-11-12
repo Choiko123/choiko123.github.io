@@ -1619,7 +1619,7 @@
   });
 
   (function openFromHash() {
-    const h = location.hash.replace('#', '').toLowerCase();
+    const h = (new URLSearchParams(location.search).get('go') || location.hash.replace('#', '')).toLowerCase();
     if (h === 'purchase') showPage('choiko');
     else if (h === 'contact') showPage('about');
     else if (h === 'subscribe') { showPage('choiko'); openShopModal('subscribe'); }
