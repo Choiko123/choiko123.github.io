@@ -1122,6 +1122,14 @@
       font-family: 'Oswald', 'KoPubWorld Dotum', 'Apple SD Gothic Neo', sans-serif;
       font-weight: 700; letter-spacing: -0.01em;
     }
+  
+    /* CONTACT: 이력과 이메일 (2026-11-12) */
+    .about-history { list-style: none; margin: 1.8rem 0 0; padding: 1.2rem 0 0; border-top: 1px solid var(--rule-soft); display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.92rem; color: var(--ink-light); }
+    .about-year { font-family: 'Oswald', sans-serif; font-weight: 500; color: var(--ink); display: inline-block; min-width: 3.2rem; }
+    .about-email { margin: 2rem 0 1.6rem; padding: 1.2rem 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+    .about-email-label { display: block; font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--ink-faint); margin-bottom: 0.4rem; }
+    .about-email-addr { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: clamp(1.5rem, 5vw, 2.1rem); color: var(--ink); text-decoration: none; word-break: break-all; }
+    .about-email-addr:hover { opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -1322,6 +1330,14 @@
         <p class="about-sub">작가</p>
         <div class="about-body">
           <p>창원에서 학창시절을 보내고 서울로 와 혼자 살고 있다. 대학에서 영화를 전공했다. 에세이를 쓰고, 커피를 내리거나 학생들을 가르치며 살고 있다. 회오리와 다비라는 이름의 고양이를 키우고 있다. 18살에 첫 책을 출간한 유망주였으나 지금은 뭐가 될지 모르겠다. (동시에 알고 있다.)</p>
+        </div>
+        <ul class="about-history">
+          <li><span class="about-year">2025</span> &lt;안 할 수도 있었던 말&gt; 독립출판</li>
+          <li><span class="about-year">2018</span> &lt;오늘의 우울&gt;, 경향BP</li>
+        </ul>
+        <div class="about-email">
+          <span class="about-email-label">EMAIL</span>
+          <a class="about-email-addr" href="mailto:walaikin@gmail.com">walaikin@gmail.com</a>
         </div>
         <div class="about-links">
           <a class="about-link" href="https://instagram.com/_ou_aei_" target="_blank">@_ou_aei_</a>
